@@ -4,7 +4,6 @@
 #    Time: 上午1:01
 #
 __author__ = 'haku'
-import railgun
 import requests
 import re
 from bs4 import BeautifulSoup

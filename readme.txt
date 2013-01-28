@@ -1,4 +1,4 @@
-How To Use?
+﻿How To Use?
 
 test.yaml
 
@@ -24,6 +24,7 @@ subaction:
 
 then in your script
 
+from railgun import RailGun
 import yaml
 
 taskdata = yaml.load(file("res/testsite.yaml"))

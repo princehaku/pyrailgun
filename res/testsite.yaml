@@ -7,13 +7,13 @@ subaction:
   - action: parser
     rule: .entry_cover_list li
     subaction:
-    - action: node
+    - action: shell
       group: default
       subaction:
         - {action: parser, rule: '.entry_cover .cover_img', setField: img}
         - {action: parser, strip: 'true', rule: '.entry_cover .score', setField: score}
         - {action: parser, rule: '.bio a', setField: dest}
         - action: fetcher
-          url: http://s.taobao.com/${#dest}
+          url: http://s.taobao.com/${#img}
           subaction:
           - {action: parser, rule: '#title', setField: description}

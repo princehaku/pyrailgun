@@ -13,80 +13,93 @@ from __pattern import Pattern
 
 class RailGun():
     def __init__(self):
-        self.configdata = dict([])
-        self.nodegroups = dict([])
+        self.config_data = dict([])
+        self.shell_groups = dict([])
 
-    def settaskdata(self, taskdata):
+    # set taskdata into me
+    def setTaskData(self, taskdata):
         self.taskdata = dict(taskdata)
 
-    def settask(self, tfile):
+    # set taskdata into me via a yaml file
+    def setTask(self, tfile):
         assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
         taskdata = yaml.load(tfile)
         self.taskdata = dict(taskdata)
 
-    def setconfig(self, config_key, config_value):
-        self.configdata[config_key] = config_value
+    # set some running configure
+    def setConfig(self, config_key, config_value):
+        self.config_data[config_key] = config_value
 
+    # do work
     def fire(self):
-        self.__parserNodes(self.taskdata)
-        return self.nodegroups
+        self.__parserShells(self.taskdata)
+        return self.shell_groups
 
-    def __parserNodes(self, taskentry):
-        if (None == taskentry):
+    # get parsed shells
+    def getShells(self, groupname='default'):
+        return self.shell_groups.get(groupname)
+
+    def __parserShells(self, task_entry):
+        if (None == task_entry):
             return
-        if (isinstance(taskentry, unicode)):
+        if (isinstance(task_entry, unicode)):
             return
             # do current action
-        actionname = taskentry["action"].strip()
+        actionname = task_entry["action"].strip()
         if actionname == 'main':
-            taskentry = self.__main(taskentry)
-        if actionname == 'node':
-            taskentry = self.__createnode(taskentry)
-        if actionname == 'fakenode':
+            task_entry = self.__main(task_entry)
+        if actionname == 'shell':
+            task_entry = self.__createShell(task_entry)
+        if actionname == 'fakeshell':
             pass
         if actionname == 'fetcher':
-            taskentry = self.__fetch(taskentry)
+            task_entry = self.__fetch(task_entry)
         if actionname == 'parser':
-            taskentry = self.__parser(taskentry)
-        if (None == taskentry.get('subaction')):
+            task_entry = self.__parser(task_entry)
+        if (None == task_entry.get('subaction')):
             return
-        for subtask in taskentry['subaction']:
-            # if entry is not fakednode and entry has datas then copy to subtask
-            if (subtask['action'] != 'fakenode' and taskentry.get('datas') != None):
-                subtask['datas'] = taskentry.get('datas')
+        for subtask in task_entry['subaction']:
+            # if entry is not fakedshell and entry has datas then copy to subtask
+            if (subtask['action'] != 'fakeshell' and task_entry.get('datas') != None):
+                subtask['datas'] = task_entry.get('datas')
                 # ignore datas field
             if str(subtask) == 'datas':
                 continue;
                 # passed to subtask
-            if taskentry.get('nodegroup') != None:
-                subtask['nodegroup'] = taskentry.get('nodegroup')
-            if taskentry.get('nodeid') != None:
-                subtask['nodeid'] = taskentry.get('nodeid')
-            self.__parserNodes(subtask)
+            if task_entry.get('shellgroup') != None:
+                subtask['shellgroup'] = task_entry.get('shellgroup')
+            if task_entry.get('shellid') != None:
+                subtask['shellid'] = task_entry.get('shellid')
+            self.__parserShells(subtask)
         return
 
-    def __main(self, taskentry):
-        print taskentry['name'], "运行"
-        return taskentry
+    def __main(self, task_entry):
+        print task_entry['name'], "运行"
+        return task_entry
 
-    def __fetch(self, taskentry):
+    def __fetch(self, task_entry):
+        p = Pattern(task_entry, self.__getCurrentShell(task_entry))
+        if (p.convertPattern('url')) :
+            for faketask in p.getConvertdShells():
+                self.__fetch(faketask)
+            return
         s = requests.session()
-        url = taskentry['url'].strip()
+        url = task_entry['url'].strip()
         print "fetching ", url
         data = s.get(url)
-        taskentry['datas'] = [data.text]
-        return taskentry
+        task_entry['datas'] = [data.text]
+        return task_entry
 
-    def __parser(self, taskentry):
-        rule = taskentry['rule'].strip()
+    def __parser(self, task_entry):
+        rule = task_entry['rule'].strip()
         print "parsing with rule ", rule
-        strip = taskentry.get('strip')
-        datas = taskentry.get('datas')
-        parseddatas = []
+        strip = task_entry.get('strip')
+        datas = task_entry.get('datas')
+        parsed_datas = []
         for data in datas:
             soup = BeautifulSoup(data)
-            parseddatasels = soup.select(rule)
-            for tag in parseddatasels:
+            parsed_data_sps = soup.select(rule)
+            for tag in parsed_data_sps:
                 tag = unicode(tag)
                 if strip == 'true' :
                     dr = re.compile(r'<!--.*-->')
@@ -95,52 +108,49 @@ class RailGun():
                     tag = dr.sub('',tag)
                     dr = re.compile(r'[\r\n]')
                     tag = dr.sub('',tag)
-                parseddatas.append(tag)
-        print "after parsing", len(parseddatas)
-        # set data to node
-        currentnode = self.__getcurrentnode(taskentry)
-        if currentnode != None and taskentry.get('setField') != None:
-            fieldname = taskentry.get('setField')
+                parsed_datas.append(tag)
+        print "after parsing", len(parsed_datas)
+        # set data to shell
+        current_shell = self.__getCurrentShell(task_entry)
+        if current_shell != None and task_entry.get('setField') != None:
+            fieldname = task_entry.get('setField')
             print "set ", fieldname
-            currentnode[fieldname] = parseddatas
-        taskentry['datas'] = parseddatas
-        return taskentry
+            current_shell[fieldname] = parsed_datas
+        task_entry['datas'] = parsed_datas
+        return task_entry
 
-    def __createnode(self, taskentry):
-        datas = taskentry.get('datas')
-        # every node has one data
+    def __createShell(self, task_entry):
+        datas = task_entry.get('datas')
+        # every shell has one data
         subacts = []
-        print len(datas), " nodes created"
-        nodegroup = taskentry.get('group', 'default')
-        nodeid = 0
-        self.nodegroups[nodegroup] = dict({})
+        print len(datas), " shells created"
+        shellgroup = task_entry.get('group', 'default')
+        shellid = 0
+        self.shell_groups[shellgroup] = dict({})
         for data in datas:
-            nodeid += 1
-            # init node
-            self.nodegroups[nodegroup][nodeid] = dict([])
+            shellid += 1
+            # init shell
+            self.shell_groups[shellgroup][shellid] = dict([])
             # task entry splited into pieces
-            # sub actions = now sub * node num
+            # sub actions = now sub * shell num
             subact = {
-                "action": "fakenode",
-                "nodegroup": nodegroup,
-                "nodeid": nodeid,
+                "action": "fakeshell",
+                "shellgroup": shellgroup,
+                "shellid": shellid,
                 "datas": [data],
-                "subaction": taskentry["subaction"]
+                "subaction": task_entry["subaction"]
             }
             subacts.append(subact)
-        taskentry["subaction"] = subacts
-        return taskentry
+        task_entry["subaction"] = subacts
+        return task_entry
 
-    def getnodes(self, groupname='default'):
-        return self.nodegroups.get(groupname)
-
-    def __getcurrentnode(self, taskentry):
-        if (None == taskentry.get('nodegroup')):
+    def __getCurrentShell(self, task_entry):
+        if (None == task_entry.get('shellgroup')):
             return None
-        nodegroup = taskentry['nodegroup']
-        if None == self.nodegroups.get(nodegroup):
+        shellgroup = task_entry['shellgroup']
+        if None == self.shell_groups.get(shellgroup):
             return None
-        nodeid = taskentry['nodeid']
-        node = self.nodegroups[nodegroup][nodeid]
-        print "get node [", nodegroup, ":", nodeid, "]"
-        return node
+        shellid = task_entry['shellid']
+        shell = self.shell_groups[shellgroup][shellid]
+        print "get shell [", shellgroup, ":", shellid, "]"
+        return shell

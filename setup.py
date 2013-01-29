@@ -22,7 +22,7 @@ CLASSIFIERS = [
 REQUIRS = [
     'pyyaml',
     'beautifulsoup4',
-    'requests',
+    'requests'
     ]
 import sys, os.path
 

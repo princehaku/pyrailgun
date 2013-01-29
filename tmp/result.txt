@@ -1,6 +1,79 @@
-6.4
-<img alt="GJ部" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/72a1638221c06cb4c88bb4cf7073f2ca12337(120x170)/thumb.jpg" width="120"/>
+8.8
+<img alt="名侦探柯南" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/1c544363c600764ad969ffaf338b190610438(120x170)/thumb.jpg" width="120"/>
+8.6
+<img alt="PSYCHO-PASS" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/228ef54e5b26951007965251fe0a45f7346453(120x170)/thumb.jpg" width="120"/>
+6.3
+<img alt="LINE OFFLINE-上班族-" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/df8ebf28bfbd8ac0d6de24b501215470172707(120x170)/thumb.jpg" width="120"/>
+8.0
+<img alt="自新世界" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/191ade9944d5956e690b3bb2137db43040454(120x170)/thumb.jpg" width="120"/>
+9.0
+<img alt="樱桃小丸子 第一季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e4e1ea5a29ed11084a5b8746a44a007619421(120x170)/thumb.jpg" width="120"/>
+6.5
+<img alt="游戏王ZEXAL" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/b0037ceacd4a2b11df222f929125c9a0320277(120x170)/thumb.jpg" width="120"/>
 7.9
+<img alt="生徒会的一存LV.2" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/c3dc825fd93c55aea1f336a9dd8c5f51106242(120x170)/thumb.jpg" width="120"/>
+7.8
+<img alt="绝对可怜小孩 THE UNLIMITED-兵部京介-" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/11ce96e0599c37c0b89c1f50985eb622689336(120x170)/thumb.jpg" width="120"/>
+8.8
+<img alt="机动战士高达08MS小队:三次元交战" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7fe6d820531891d1a2c103a6657294dd48060(120x170)/thumb.jpg" width="120"/>
+6.9
+<img alt="AMNESIA失忆症" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f42e29064d2c465a4303369ebd4945e01013496(120x170)/thumb.jpg" width="120"/>
+7.9
+<img alt="小小克星" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d5459479a9d20487e733c2c248f0955b287312(120x170)/thumb.jpg" width="120"/>
+6.9
+<img alt="迷你偶像！－PETIT IDOLM@STER－" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f0ae874b1172f29bff3ea05228b58399598525(120x170)/thumb.jpg" width="120"/>
+7.9
+<img alt="少女与战车 特典OVA" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/6abab055bb2a6fa83ac82b3d5090d940281013(120x170)/thumb.jpg" width="120"/>
+8.4
+<img alt="樱花庄的宠物女孩" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f4afdad252aef0d21ba37811230e76df205365(120x170)/thumb.jpg" width="120"/>
+7.9
+<img alt="我女友与青梅竹马的惨烈修罗场" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/61cc1cb1504cc862f22296b734e2b4a986978(120x170)/thumb.jpg" width="120"/>
+8.6
+<img alt="南家三姐妹 我回来了" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7ba5211137c5e3ca3b99b370c173643362234(120x170)/thumb.jpg" width="120"/>
+9.3
+<img alt="花牌情缘 第二季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d940fcd224883a54911287c23d13f6e172482(120x170)/thumb.jpg" width="120"/>
+9.0
+<img alt="食梦者 第三季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7d54af22ef73e2a219ed4eb4176da3c4142253(120x170)/thumb.jpg" width="120"/>
+8.4
+<img alt="全职猎人2011" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/49f50dc7cd020d2ada54b69e81934a54432934(120x170)/thumb.jpg" width="120"/>
+3.2
+<img alt="地狱幼稚园" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d81465e4a2205f0c1354cb0ca258a99b17833(120x170)/thumb.jpg" width="120"/>
+6.8
+<img alt="锁锁美同学＠提不起劲" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e2146d79c2ed23bbf408c7f59aed8baf188256(120x170)/thumb.jpg" width="120"/>
+6.1
+<img alt="闪乱神乐" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/799141ac14ec1072a365f41cc2a14a6d263673(120x170)/thumb.jpg" width="120"/>
+<img alt="星系保卫战" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/bf84afbd0b492249ab781e812901c55191680(120x170)/thumb.jpg" width="120"/>
+<img alt="小鸡不好惹之咸蛋寺" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/b71ccae9e353cf50d75b66966bdc97dd21804(120x170)/thumb.jpg" width="120"/>
+8.6
+<img alt="刀剑神域" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/22ea256a2866960347b1c3d0fae23af6284916(120x170)/thumb.jpg" width="120"/>
+8.0
+<img alt="魔王勇者" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7e916ac4735b59d2ee1252b2cc2340d91086786(120x170)/thumb.jpg" width="120"/>
+8.7
+<img alt="铳墓" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f2e55c2eddb346c9a8a1b34651b99b7627756(120x170)/thumb.jpg" width="120"/>
+7.7
+<img alt="Love Live!" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f6cda028db869bd2fd57c2621167df02431082(120x170)/thumb.jpg" width="120"/>
+4.3
+<img alt="漫研部" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d3dd4715ef8754978eaba9d7ff881775230340(120x170)/thumb.jpg" width="120"/>
+8.0
+<img alt="魔笛MAGI" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/c8d12bec88c8b7e3d906817975f513df207372(120x170)/thumb.jpg" width="120"/>
+7.4
+<img alt="伊克西翁传说" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/4328c3d1e9a71dc616cd549a1dcaaa91115990(120x170)/thumb.jpg" width="120"/>
+<img alt="心跳！光之美少女" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/eed578d68f40335f8e523e12e59cf154147209(120x170)/thumb.jpg" width="120"/>
+5.6
+<img alt="石田和朝仓" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/dcb2b747d10bdce4a67f31fad83b7ed426222(120x170)/thumb.jpg" width="120"/>
+7.5
+<img alt="新网球王子 OVA" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/97adeab4acd9ef67862ec5ef67fd6fbb214063(120x170)/thumb.jpg" width="120"/>
+8.6
+<img alt="宇宙兄弟" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/886fb65079ca00f2761f5b1054f0fc22555116(120x170)/thumb.jpg" width="120"/>
+7.9
+<img alt="宠物小精灵BW 第二季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/78db9144fc23ecd317cde74522a6fabd72878(120x170)/thumb.jpg" width="120"/>
+6.7
+<img alt="女高网球部" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/83de42e4d93367242ae1ba299d4ea503135239(120x170)/thumb.jpg" width="120"/>
+8.4
+<img alt="东方八犬异闻" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/838a99ce6d91b989b2b3c22a998da45b149686(120x170)/thumb.jpg" width="120"/>
+6.5
+<img alt="GJ部" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/72a1638221c06cb4c88bb4cf7073f2ca12337(120x170)/thumb.jpg" width="120"/>
+8.0
 <img alt="问题儿童都来自异世界" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e2454ce66185b45eac7b2c9f3a32370071972(120x170)/thumb.jpg" width="120"/>
 8.6
 <img alt="我的朋友很少NEXT" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/29fa5331ab8a72b073266e27973dd02a64517(120x170)/thumb.jpg" width="120"/>
@@ -12,50 +85,28 @@
 <img alt="数码宝贝组合战争" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e36faff563b36850b8a6e4f7413cf88577720(120x170)/thumb.jpg" width="120"/>
 8.5
 <img alt="圣斗士星矢：冥王神话" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/bca94814d4709139368fea5f08a689dd36404(120x170)/thumb.jpg" width="120"/>
-8.4
+8.3
 <img alt="玉子市场" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7051040f0da25bc7a0bf4f55ed885083765492(120x170)/thumb.jpg" width="120"/>
-6.2
+5.9
 <img alt="漫画少女" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f71285700df25348c95547c4dcd01d8e48846(120x170)/thumb.jpg" width="120"/>
-8.6
-<img alt="南家三姐妹 我回来了" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7ba5211137c5e3ca3b99b370c173643362234(120x170)/thumb.jpg" width="120"/>
-7.4
+7.3
 <img alt="初音岛3" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/96e81511f0a85beaabab154c6871c083140922(120x170)/thumb.jpg" width="120"/>
 5.6
 <img alt="我的妹妹是“大阪大妈”" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/187f367495b07b694acbb503904c5bb7236670(120x170)/thumb.jpg" width="120"/>
-7.9
-<img alt="我女友与青梅竹马的惨烈修罗场" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/61cc1cb1504cc862f22296b734e2b4a986978(120x170)/thumb.jpg" width="120"/>
-7.9
-<img alt="小小克星" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d5459479a9d20487e733c2c248f0955b287312(120x170)/thumb.jpg" width="120"/>
 2.7
 <img alt="圣斗士星矢Ω" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/6e82edf78bfc952e946bed45df53881f201803(120x170)/thumb.jpg" width="120"/>
-8.0
-<img alt="魔王勇者" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/7e916ac4735b59d2ee1252b2cc2340d91086786(120x170)/thumb.jpg" width="120"/>
 8.2
 <img alt="AKB0048 NEXT STAGE" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/9436ecc06429f20eeb2b21be1c6ea01a107851(120x170)/thumb.jpg" width="120"/>
-8.3
-<img alt="东方八犬异闻" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/838a99ce6d91b989b2b3c22a998da45b149686(120x170)/thumb.jpg" width="120"/>
-7.9
-<img alt="自新世界" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/191ade9944d5956e690b3bb2137db43040454(120x170)/thumb.jpg" width="120"/>
 8.8
 <img alt="犬夜叉" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/5ae7607d13bd3eaf07b13ad554fd3243129800(120x170)/thumb.jpg" width="120"/>
-8.6
-<img alt="PSYCHO-PASS" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/228ef54e5b26951007965251fe0a45f7346453(120x170)/thumb.jpg" width="120"/>
 7.4
 <img alt="Q弟侦探因幡" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/07a7e45d70a4571603af35d14fb3985669059(120x170)/thumb.jpg" width="120"/>
 8.8
 <img alt="黑塔利亚" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d22e68512622294646ac0faa8f8f9aaf144214(120x170)/thumb.jpg" width="120"/>
-8.5
+8.6
 <img alt="黑子的篮球：Tip Off" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/72630ade697234820d25a8dcbf411cc0134862(120x170)/thumb.jpg" width="120"/>
-9.3
-<img alt="花牌情缘 第二季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d940fcd224883a54911287c23d13f6e172482(120x170)/thumb.jpg" width="120"/>
 8.0
 <img alt="机器人笔记" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/fbc9a16d03c50b64250951bd8d20dc1f79734(120x170)/thumb.jpg" width="120"/>
-6.1
-<img alt="闪乱神乐" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/799141ac14ec1072a365f41cc2a14a6d263673(120x170)/thumb.jpg" width="120"/>
-7.9
-<img alt="生徒会的一存LV.2" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/c3dc825fd93c55aea1f336a9dd8c5f51106242(120x170)/thumb.jpg" width="120"/>
-8.4
-<img alt="樱花庄的宠物女孩" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f4afdad252aef0d21ba37811230e76df205365(120x170)/thumb.jpg" width="120"/>
 7.5
 <img alt="向山进发" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/5d29348ac32c8fa5f591d55259a5e06978181(120x170)/thumb.jpg" width="120"/>
 4.7
@@ -64,54 +115,3 @@
 <img alt="宝石宠物 kira☆deko！" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/3e451044b4dececc7cc262ebb1027b85204787(120x170)/thumb.jpg" width="120"/>
 7.1
 <img alt="向银河开球" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/733847e9cefdba325319d56929d21107115401(120x170)/thumb.jpg" width="120"/>
-8.7
-<img alt="白熊咖啡厅" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d5fe7ab8212a89187c697e3eb07254f779732(120x170)/thumb.jpg" width="120"/>
-8.2
-<img alt="绝园的暴风雨" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/1c96fff0f4283cff73c377be074bca56342642(120x170)/thumb.jpg" width="120"/>
-6.8
-<img alt="锁锁美同学＠提不起劲" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e2146d79c2ed23bbf408c7f59aed8baf188256(120x170)/thumb.jpg" width="120"/>
-7.4
-<img alt="火影忍者" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e3f7676301e18eca6b97dd8f2a9cde4b24264(120x170)/thumb.jpg" width="120"/>
-8.9
-<img alt="樱桃小丸子 第一季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e4e1ea5a29ed11084a5b8746a44a007619421(120x170)/thumb.jpg" width="120"/>
-6.7
-<img alt="VividRed Operation" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/b67d13f8975f897278aa94cad7b4406d830436(120x170)/thumb.jpg" width="120"/>
-8.8
-<img alt="铳墓" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f2e55c2eddb346c9a8a1b34651b99b7627756(120x170)/thumb.jpg" width="120"/>
-8.3
-<img alt="少年阴阳师" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/5f35c6c7348d36248f4f2935f9029f85355962(120x170)/thumb.jpg" width="120"/>
-6.7
-<img alt="偶像活动" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/44322f6bd8e2e0e1beada0598c4812b9467793(120x170)/thumb.jpg" width="120"/>
-8.4
-<img alt="中二病也要谈恋爱 特典" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/e6ca5802f0c57a1bfd4deb9a558a9803108058(120x170)/thumb.jpg" width="120"/>
-8.8
-<img alt="名侦探柯南" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/1c544363c600764ad969ffaf338b190610438(120x170)/thumb.jpg" width="120"/>
-6.7
-<img alt="LINE OFFLINE-上班族-" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/df8ebf28bfbd8ac0d6de24b501215470172707(120x170)/thumb.jpg" width="120"/>
-<img alt="太空特警" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/57f7683319598af7f6e8e8724049c336228674(120x170)/thumb.jpg" width="120"/>
-8.0
-<img alt="魔笛MAGI" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/c8d12bec88c8b7e3d906817975f513df207372(120x170)/thumb.jpg" width="120"/>
-8.9
-<img alt="交响诗篇" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/bde85a73c1653998b17f2478ab34795e98420(120x170)/thumb.jpg" width="120"/>
-8.9
-<img alt="库洛魔法使" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f4a5d38470c10baa20986708d631abf0470509(120x170)/thumb.jpg" width="120"/>
-4.5
-<img alt="漫研部" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d3dd4715ef8754978eaba9d7ff881775230340(120x170)/thumb.jpg" width="120"/>
-8.6
-<img alt="哆啦A梦：大雄的猫狗时空传" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/96f57a702a5048de6b43edf77bc3369c123934(120x170)/thumb.jpg" width="120"/>
-7.0
-<img alt="迷你偶像！－PETIT IDOLM@STER－" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f0ae874b1172f29bff3ea05228b58399598525(120x170)/thumb.jpg" width="120"/>
-6.5
-<img alt="火影忍者SD：李洛克的青春全力忍传" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/52ac57ac9340920a2d6624f0d7c1de2d122029(120x170)/thumb.jpg" width="120"/>
-7.5
-<img alt="战勇。" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/9acd1bc4760c70450ce4d325f8da44a921538(120x170)/thumb.jpg" width="120"/>
-7.9
-<img alt="宠物小精灵BW 第二季" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/78db9144fc23ecd317cde74522a6fabd72878(120x170)/thumb.jpg" width="120"/>
-3.5
-<img alt="地狱幼稚园" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/d81465e4a2205f0c1354cb0ca258a99b17833(120x170)/thumb.jpg" width="120"/>
-4.4
-<img alt="兽旋战斗Monsuno" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/154d07d052dbfdf06b44d8730bdf3b39206045(120x170)/thumb.jpg" width="120"/>
-7.4
-<img alt="麦布里奇的线" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/99feb0ba2bcab1469017faba668f830785872(120x170)/thumb.jpg" width="120"/>
-<img alt="gdgd妖精s 闪烁" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/583bf21718a4ba014ffba6b098f684e332305(120x170)/thumb.jpg" width="120"/>
-<img alt="幻变精灵之蛋糕甜心" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/20643cbb71ca212f8a05e684bdeda4ee161120(120x170)/thumb.jpg" width="120"/>

@@ -11,9 +11,9 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 railgun = RailGun()
-railgun.settask(file("res/testsite.yaml"));
+railgun.setTask(file("res/testsite.yaml"));
 railgun.fire();
-nodes = railgun.getnodes()
+nodes = railgun.getShells()
 file = file("tmp/result.txt", "w+")
 for id in nodes:
     node = nodes[id]

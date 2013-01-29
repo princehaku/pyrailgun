@@ -50,7 +50,7 @@ class RailGun():
             task_entry = self.__main(task_entry)
         if actionname == 'shell':
             task_entry = self.__createShell(task_entry)
-        if actionname == 'fakeshell':
+        if actionname == 'faketask':
             pass
         if actionname == 'fetcher':
             task_entry = self.__fetch(task_entry)
@@ -60,7 +60,7 @@ class RailGun():
             return
         for subtask in task_entry['subaction']:
             # if entry is not fakedshell and entry has datas then copy to subtask
-            if (subtask['action'] != 'fakeshell' and task_entry.get('datas') != None):
+            if (subtask['action'] != 'faketask' and task_entry.get('datas') != None):
                 subtask['datas'] = task_entry.get('datas')
                 # ignore datas field
             if str(subtask) == 'datas':
@@ -80,9 +80,7 @@ class RailGun():
     def __fetch(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry))
         if (p.convertPattern('url')) :
-            for faketask in p.getConvertdShells():
-                self.__fetch(faketask)
-            return
+            return p.getConvertdShells()
         s = requests.session()
         url = task_entry['url'].strip()
         print "fetching ", url
@@ -134,7 +132,7 @@ class RailGun():
             # task entry splited into pieces
             # sub actions = now sub * shell num
             subact = {
-                "action": "fakeshell",
+                "action": "faketask",
                 "shellgroup": shellgroup,
                 "shellid": shellid,
                 "datas": [data],

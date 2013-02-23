@@ -1,4 +1,8 @@
-# --encoding=utf-8
+#    coding: UTF-8
+#    User: haku
+#    Date: 13-2-14
+#    Time: 上午1:01
+#
 __author__ = 'haku'
 import railgun
 import requests
@@ -46,7 +50,7 @@ class RailGun():
                 # ignore datas field
             if str(subtask) == 'datas':
                 continue;
-            # passed to subtask
+                # passed to subtask
             if taskentry.get('nodegroup') != None:
                 subtask['nodegroup'] = taskentry.get('nodegroup')
             if taskentry.get('nodeid') != None:
@@ -61,7 +65,7 @@ class RailGun():
     def __fetch(self, taskentry):
         s = requests.session()
         url = taskentry['url'].strip()
-        print "fetching ",url
+        print "fetching ", url
         data = s.get(url)
         taskentry['datas'] = [data.text]
         return taskentry
@@ -82,7 +86,7 @@ class RailGun():
             nodegroup = taskentry['nodegroup']
             nodeid = taskentry['nodeid']
             fieldname = taskentry.get('setField')
-            print "node [group:id]=[]"
+            print "node [",nodegroup, ":", nodeid, "] set ", fieldname
             self.nodegroups[nodegroup][nodeid][fieldname] = parseddatas
         taskentry['datas'] = parseddatas
         return taskentry
@@ -91,7 +95,7 @@ class RailGun():
         datas = taskentry.get('datas')
         # every node has one data
         subacts = []
-        print len(datas)," nodes created"
+        print len(datas), " nodes created"
         nodegroup = taskentry.get('group', 'default')
         nodeid = 0
         self.nodegroups[nodegroup] = dict({})
@@ -105,12 +109,12 @@ class RailGun():
                 "action": "fakenode",
                 "nodegroup": nodegroup,
                 "nodeid": nodeid,
-                "datas" : [data],
+                "datas": [data],
                 "subaction": taskentry["subaction"]
             }
             subacts.append(subact)
         taskentry["subaction"] = subacts
         return taskentry
 
-    def getnodes(self, groupname = 'default'):
+    def getnodes(self, groupname='default'):
         return self.nodegroups.get(groupname)

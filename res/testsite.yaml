@@ -10,9 +10,9 @@ subaction:
     - action: node
       group: default
       subaction:
-      - {action: parser, rule: .entry_cover .cover_img, setField: img}
-      - {action: parser, rule: .entry_cover .score, setField: score}
-      - {action: parser, rule: .bio a, setField: dest}
+      - {action: parser, rule: '.entry_cover .cover_img', setField: img}
+      - {action: parser, rule: '.entry_cover .score', setField: score}
+      - {action: parser, rule: '.bio a', setField: dest}
       - action: fetcher
         url: http://s.taobao.com/${#dest}
         subaction:

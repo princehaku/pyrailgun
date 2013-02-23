@@ -1,0 +1,8 @@
+
+                "fetcher": {
+                    "url": "http://s.taobao.com/${#dest}",
+                    "parser": {
+                        "rule": ".contents_more",
+                        "setField": "description"
+                    }
+                },

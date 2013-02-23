@@ -17,17 +17,16 @@ class RailGun():
         self.configdata[config_key] = config_value
 
     def fire(self):
-        runtimedata = dict()
-        self.__parserNodes(self.taskdata, runtimedata=0)
+        self.__parserNodes(self.taskdata)
         return self.nodegroups
 
-    def __parserNodes(self, taskentry, runtimedata):
+    def __parserNodes(self, taskentry):
         if (None == taskentry):
             return
         if (isinstance(taskentry, unicode)):
             return
             # do current action
-        actionname = taskentry["action"]
+        actionname = taskentry["action"].strip()
         if actionname == 'main':
             taskentry = self.__main(taskentry)
         if actionname == 'node':
@@ -52,7 +51,7 @@ class RailGun():
                 subtask['nodegroup'] = taskentry.get('nodegroup')
             if taskentry.get('nodeid') != None:
                 subtask['nodeid'] = taskentry.get('nodeid')
-            self.__parserNodes(subtask, runtimedata)
+            self.__parserNodes(subtask)
         return
 
     def __main(self, taskentry):
@@ -61,14 +60,14 @@ class RailGun():
 
     def __fetch(self, taskentry):
         s = requests.session()
-        print "fetching ", taskentry['url']
-        data = s.get(taskentry['url'])
-        # TODO:对data处理 编码以及5xx判断
+        url = taskentry['url'].strip()
+        print "fetching ",url
+        data = s.get(url)
         taskentry['datas'] = [data.text]
         return taskentry
 
     def __parser(self, taskentry):
-        rule = taskentry['rule']
+        rule = taskentry['rule'].strip()
         print "parsing with rule ", rule
         datas = taskentry.get('datas')
         parseddatas = []
@@ -79,7 +78,12 @@ class RailGun():
                 parseddatas.append(unicode(tag))
         print "after parsing", len(parseddatas)
         # set data to node
-
+        if taskentry.get('nodegroup') != None and taskentry.get('setField') != None:
+            nodegroup = taskentry['nodegroup']
+            nodeid = taskentry['nodeid']
+            fieldname = taskentry.get('setField')
+            print "node [group:id]=[]"
+            self.nodegroups[nodegroup][nodeid][fieldname] = parseddatas
         taskentry['datas'] = parseddatas
         return taskentry
 
@@ -90,8 +94,11 @@ class RailGun():
         print len(datas)," nodes created"
         nodegroup = taskentry.get('group', 'default')
         nodeid = 0
+        self.nodegroups[nodegroup] = dict({})
         for data in datas:
             nodeid += 1
+            # init node
+            self.nodegroups[nodegroup][nodeid] = dict([])
             # task entry splited into pieces
             # sub actions = now sub * node num
             subact = {

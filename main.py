@@ -1,9 +1,9 @@
 # --encoding=utf-8
 __author__ = 'haku'
 from railgun import RailGun
-import json
+import yaml
 
-taskdata = json.load(file("res/testsite.json"))
+taskdata = yaml.load(file("res/testsite.yaml"))
 railgun = RailGun()
 railgun.settask(taskdata);
 railgun.fire();

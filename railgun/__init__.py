@@ -6,7 +6,9 @@
 __author__ = 'haku'
 import railgun
 import requests
+import re
 from bs4 import BeautifulSoup
+from __pattern import Pattern
 
 
 class RailGun():
@@ -73,21 +75,29 @@ class RailGun():
     def __parser(self, taskentry):
         rule = taskentry['rule'].strip()
         print "parsing with rule ", rule
+        strip = taskentry.get('strip')
         datas = taskentry.get('datas')
         parseddatas = []
         for data in datas:
             soup = BeautifulSoup(data)
             parseddatasels = soup.select(rule)
             for tag in parseddatasels:
-                parseddatas.append(unicode(tag))
+                tag = unicode(tag)
+                if strip == 'true' :
+                    dr = re.compile(r'<!--.*-->')
+                    tag = dr.sub('',tag)
+                    dr = re.compile(r'<.*?>')
+                    tag = dr.sub('',tag)
+                    dr = re.compile(r'[\r\n]')
+                    tag = dr.sub('',tag)
+                parseddatas.append(tag)
         print "after parsing", len(parseddatas)
         # set data to node
-        if taskentry.get('nodegroup') != None and taskentry.get('setField') != None:
-            nodegroup = taskentry['nodegroup']
-            nodeid = taskentry['nodeid']
+        currentnode = self.__getcurrentnode(taskentry)
+        if currentnode != None and taskentry.get('setField') != None:
             fieldname = taskentry.get('setField')
-            print "node [",nodegroup, ":", nodeid, "] set ", fieldname
-            self.nodegroups[nodegroup][nodeid][fieldname] = parseddatas
+            print "set ", fieldname
+            currentnode[fieldname] = parseddatas
         taskentry['datas'] = parseddatas
         return taskentry
 
@@ -118,3 +128,14 @@ class RailGun():
 
     def getnodes(self, groupname='default'):
         return self.nodegroups.get(groupname)
+
+    def __getcurrentnode(self, taskentry):
+        if (None == taskentry.get('nodegroup')):
+            return None
+        nodegroup = taskentry['nodegroup']
+        if None == self.nodegroups.get(nodegroup):
+            return None
+        nodeid = taskentry['nodeid']
+        node = self.nodegroups[nodegroup][nodeid]
+        print "get node [", nodegroup, ":", nodeid, "]"
+        return node

@@ -3,7 +3,7 @@ How To Use?
 test.yaml
 
 action: main
-name: "vc¶¯Âþ"
+name: "vcåŠ¨æ¼«"
 subaction:
 - action: fetcher
   url: http://www.verycd.com/base/cartoon/page

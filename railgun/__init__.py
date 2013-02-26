@@ -4,8 +4,9 @@
 #    Time: 上午1:01
 #
 __author__ = 'haku'
-import requests
 import re
+import requests
+import yaml
 from bs4 import BeautifulSoup
 from __pattern import Pattern
 
@@ -15,7 +16,12 @@ class RailGun():
         self.configdata = dict([])
         self.nodegroups = dict([])
 
-    def settask(self, taskdata):
+    def settaskdata(self, taskdata):
+        self.taskdata = dict(taskdata)
+
+    def settask(self, tfile):
+        assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
+        taskdata = yaml.load(tfile)
         self.taskdata = dict(taskdata)
 
     def setconfig(self, config_key, config_value):

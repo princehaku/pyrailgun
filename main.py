@@ -5,15 +5,13 @@
 #
 __author__ = 'haku'
 from railgun import RailGun
-import yaml
 import sys
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-taskdata = yaml.load(file("res/testsite.yaml"))
 railgun = RailGun()
-railgun.settask(taskdata);
+railgun.settask(file("res/testsite.yaml"));
 railgun.fire();
 nodes = railgun.getnodes()
 file = file("tmp/result.txt", "w+")

@@ -18,17 +18,15 @@ subaction:
         - {action: parser, strip: 'true', rule: '.entry_cover .score', setField: score}
         - {action: parser, rule: '.bio a', setField: dest}
         - action: fetcher
-          url: http://s.taobao.com/${#dest}
+          url: http://www.verycd.com/base/${#dest}
           subaction:
           - {action: parser, rule: '#title', setField: description}
 
 then in your script
 
 from railgun import RailGun
-import yaml
 
-taskdata = yaml.load(file("res/testsite.yaml"))
 railgun = RailGun()
-railgun.settask(taskdata);
+railgun.settask(file("res/testsite.yaml"));
 railgun.fire();
-print railgun.getnodes()
+nodes = railgun.getnodes()

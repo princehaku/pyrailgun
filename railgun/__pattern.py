@@ -5,6 +5,7 @@
 #
 import re
 
+
 class Pattern:
     def __init__(self, task_entry=None, shell=None):
         assert (task_entry != None), "task_entry can't be None"
@@ -25,8 +26,11 @@ class Pattern:
             assert self.shell != None, "shell can't be empty when using #"
             if self.shell.get(keyname) == None:
                 return False
-            assert len(self.shell[keyname]) == 1, " shell'src is not a single value"
-            new_str = re.sub(r'\$\{(.*?)\}', self.shell[keyname][0], text, 1)
+            assert len(self.shell[keyname]) <= 1, " shell 'src is not a single value"
+            replacedst = ""
+            if len(self.shell[keyname]) == 1:
+                replacedst = self.shell[keyname][0]
+            new_str = re.sub(r'\$\{(.*?)\}', replacedst, text, 1)
             self.convetedstrs.append(new_str)
 
         if re.match(r'\d*,\d*', matched[0]):
@@ -34,7 +38,7 @@ class Pattern:
             regxp = re.search(r'(\d*),(\d*)', matched[0])
             lower = int(regxp.group(1))
             max = int(regxp.group(2))
-            for i in range(lower, max+1) :
+            for i in range(lower, max + 1):
                 new_str = re.sub(r'\$\{(.*?)\}', str(i), text, 1)
                 self.convetedstrs.append(new_str)
         return True

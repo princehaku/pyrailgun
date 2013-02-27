@@ -20,3 +20,4 @@ for id in nodes:
     if (node.get('score') != None and len(node.get('score')) > 0):
         file.write(node.get('score')[0] + "\r\n")
     file.write(node.get('img')[0] + "\r\n")
+    file.write(node.get('description')[0] + "\r\n")

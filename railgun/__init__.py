@@ -95,12 +95,23 @@ class RailGun():
         print "parsing with rule ", rule
         strip = task_entry.get('strip')
         datas = task_entry.get('datas')
+        pos = task_entry.get('pos')
+        attr = task_entry.get('attr')
         parsed_datas = []
         for data in datas:
             soup = BeautifulSoup(data)
             parsed_data_sps = soup.select(rule)
+            # set pos
+            if (None != pos) :
+                if pos > len(parsed_data_sps) - 1:
+                    parsed_data_sps = []
+                else :
+                    parsed_data_sps = [parsed_data_sps[pos]]
             for tag in parsed_data_sps:
                 tag = unicode(tag)
+                if (None != attr) :
+                    attr_data = BeautifulSoup(tag)
+                    tag = attr_data.contents[0].get(attr)
                 if strip == 'true':
                     dr = re.compile(r'<!--.*-->')
                     tag = dr.sub('', tag)

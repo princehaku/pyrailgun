@@ -6,7 +6,7 @@
 <img alt="火影忍者SD：李洛克的青春全力忍传" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/52ac57ac9340920a2d6624f0d7c1de2d122029(120x170)/thumb.jpg" width="120"/>
 6.9
 <img alt="迷你偶像！－PETIT IDOLM@STER－" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/f0ae874b1172f29bff3ea05228b58399598525(120x170)/thumb.jpg" width="120"/>
-8.3
+8.2
 <img alt="BLOOD-C The Last Dark" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/da22c556b1933e4039f7fdbe0ce79e6c301521(120x170)/thumb.jpg" width="120"/>
 7.4
 <img alt="战勇。" class="cover_img" height="170" src="http://i-7.vcimg.com/crop/9acd1bc4760c70450ce4d325f8da44a921538(120x170)/thumb.jpg" width="120"/>

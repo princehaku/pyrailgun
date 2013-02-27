@@ -9,12 +9,14 @@ import requests
 import yaml
 from bs4 import BeautifulSoup
 from __pattern import Pattern
+from __logging import Logger
 
 
 class RailGun():
     def __init__(self):
         self.config_data = dict([])
         self.shell_groups = dict([])
+        self.logger = Logger.GetLogger()
 
     # set taskdata into me
     def setTaskData(self, taskdata):
@@ -47,7 +49,8 @@ class RailGun():
             # do current action
         actionname = task_entry["action"].strip()
         if None != task_entry.get('shellid'):
-            print "current shell [", task_entry.get('shellgroup'), ":", task_entry.get('shellid'), "]"
+            self.logger.info("info current shell [" + task_entry.get('shellgroup') + ":" + \
+                             str(task_entry.get('shellid')) + "]")
         if actionname == 'main':
             task_entry = self.__main(task_entry)
         if actionname == 'shell':
@@ -76,7 +79,7 @@ class RailGun():
         return
 
     def __main(self, task_entry):
-        print task_entry['name'], "运行"
+        self.logger.info("task_entry['name']" + "运行")
         return task_entry
 
     def __fetch(self, task_entry):
@@ -85,7 +88,7 @@ class RailGun():
         s = requests.session()
         task_entry['datas'] = []
         for url in urls:
-            print "fetching ", url
+            self.logger.info("fetching " + url)
             if "" == url:
                 # do not fetch null url
                 continue
@@ -95,7 +98,7 @@ class RailGun():
 
     def __parser(self, task_entry):
         rule = task_entry['rule'].strip()
-        print "parsing with rule ", rule
+        self.logger.info("parsing with rule " + rule)
         strip = task_entry.get('strip')
         datas = task_entry.get('datas')
         pos = task_entry.get('pos')
@@ -123,21 +126,21 @@ class RailGun():
                     dr = re.compile(r'[\r\n]')
                     tag = dr.sub('', tag)
                 parsed_datas.append(tag)
-        print "after parsing", len(parsed_datas)
+        self.logger.info("after parsing " + str(len(parsed_datas)))
         # set data to shell
         current_shell = self.__getCurrentShell(task_entry)
         if current_shell != None and task_entry.get('setField') != None:
             fieldname = task_entry.get('setField')
-            print "set ", fieldname
+            self.logger.debug("set" + fieldname + "as" + str(parsed_datas));
             current_shell[fieldname] = parsed_datas
         task_entry['datas'] = parsed_datas
         return task_entry
 
     def __createShell(self, task_entry):
         datas = task_entry.get('datas')
-        # every shell has one data
+        # every shell has only one data
         subacts = []
-        print len(datas), " shells created"
+        self.logger.info(str(len(datas)) + " shells created")
         shellgroup = task_entry.get('group', 'default')
         shellid = 0
         self.shell_groups[shellgroup] = dict({})
@@ -146,7 +149,7 @@ class RailGun():
             # init shell
             self.shell_groups[shellgroup][shellid] = dict([])
             # task entry splited into pieces
-            # sub actions = now sub * shell num
+            # sub actions nums = now sub nums * shell num
             subact = {
                 "action": "faketask",
                 "shellgroup": shellgroup,

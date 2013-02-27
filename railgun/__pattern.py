@@ -4,7 +4,7 @@
 #    Time: 上午1:01
 #
 import re
-
+from __logging import Logger
 
 class Pattern:
 
@@ -12,19 +12,24 @@ class Pattern:
         assert (task_entry != None), "task_entry can't be None"
         self.task_entry = task_entry
         self.shell = shell
+        self.logger = Logger.GetLogger()
 
-    # deep.. and deep
+    # deep.. and deep recursion
     def convertPattern(self, area, resource_str = None):
+        # task_entry must have specify field
         if None == self.task_entry.get(area):
             return None
         text = self.task_entry.get(area)
+        # set resource_str as new text resource
         if resource_str != None:
             text = resource_str
         matched = re.findall(r'\$\{(.*?)\}', text)
+        # if doesn't match. just return it
         if len(matched) == 0:
             return text
-        print "Got Patter", matched[0]
+        self.logger.info("Pattern Found as " + matched[0])
         convetedstrs = []
+        # support ${#} as shell's Field
         if matched[0][0:1] == '#':
             keyname = matched[0][1:]
             assert self.shell != None, "shell can't be empty when using #"
@@ -37,6 +42,7 @@ class Pattern:
             new_str = re.sub(r'\$\{(.*?)\}', replacedst, text, 1)
             convetedstrs.append(new_str)
 
+        # expand ${n,m} as n,n+1,n+2...m
         if re.match(r'\d*,\d*', matched[0]):
             assert self.shell == None, "rule " + matched[0] + " can't be set in shells"
             regxp = re.search(r'(\d*),(\d*)', matched[0])
@@ -45,6 +51,8 @@ class Pattern:
             for i in range(lower, max + 1):
                 new_str = re.sub(r'\$\{(.*?)\}', str(i), text, 1)
                 convetedstrs.append(new_str)
+
+        # recursion
         convetedstrs_new = []
         for s_str in convetedstrs:
             converted_sub = self.convertPattern(area, resource_str=s_str)

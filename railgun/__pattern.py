@@ -34,7 +34,7 @@ class Pattern:
             self.convetedstrs.append(new_str)
 
         if re.match(r'\d*,\d*', matched[0]):
-            assert self.shell == None, "shell can't be setted before this time"
+            assert self.shell == None, "rule " + matched[0] + " can't be set in shells"
             regxp = re.search(r'(\d*),(\d*)', matched[0])
             lower = int(regxp.group(1))
             max = int(regxp.group(2))

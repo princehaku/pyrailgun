@@ -86,8 +86,11 @@ class RailGun():
         task_entry['datas'] = []
         for url in urls:
             print "fetching ", url
-            data = s.get(url)
-            task_entry['datas'].append(data.text)
+            if "" == url:
+                # do not fetch null url
+                continue
+            data = s.get(url).text
+            task_entry['datas'].append(data)
         return task_entry
 
     def __parser(self, task_entry):

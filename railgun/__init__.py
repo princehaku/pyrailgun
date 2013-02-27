@@ -79,13 +79,15 @@ class RailGun():
 
     def __fetch(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry))
-        if (p.convertPattern('url')) :
-            return p.getConvertdShells()
+        urls = [task_entry['url'].strip()]
+        if (p.convertPattern('url')):
+            urls = p.getConvertdStr()
         s = requests.session()
-        url = task_entry['url'].strip()
-        print "fetching ", url
-        data = s.get(url)
-        task_entry['datas'] = [data.text]
+        task_entry['datas'] = []
+        for url in urls:
+            print "fetching ", url
+            data = s.get(url)
+            task_entry['datas'].append(data.text)
         return task_entry
 
     def __parser(self, task_entry):
@@ -99,13 +101,13 @@ class RailGun():
             parsed_data_sps = soup.select(rule)
             for tag in parsed_data_sps:
                 tag = unicode(tag)
-                if strip == 'true' :
+                if strip == 'true':
                     dr = re.compile(r'<!--.*-->')
-                    tag = dr.sub('',tag)
+                    tag = dr.sub('', tag)
                     dr = re.compile(r'<.*?>')
-                    tag = dr.sub('',tag)
+                    tag = dr.sub('', tag)
                     dr = re.compile(r'[\r\n]')
-                    tag = dr.sub('',tag)
+                    tag = dr.sub('', tag)
                 parsed_datas.append(tag)
         print "after parsing", len(parsed_datas)
         # set data to shell

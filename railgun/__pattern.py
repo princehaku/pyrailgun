@@ -11,7 +11,7 @@ class Pattern:
         assert (task_entry != None), "task_entry can't be None"
         self.task_entry = task_entry
         self.shell = shell
-        self.faketasks = []
+        self.convetedstrs = []
 
     def convertPattern(self, area):
         if None == self.task_entry.get(area):
@@ -27,9 +27,8 @@ class Pattern:
             if self.shell.get(keyname) == None:
                 return False
             assert len(self.shell[keyname]) == 1, " shell'src is not a single value"
-            new_task = self.__newCloneTask()
-            new_task[area] = re.sub(r'\$\{(.*?)\}', self.shell[keyname][0], text, 1)
-            self.faketasks.append(new_task)
+            new_str = re.sub(r'\$\{(.*?)\}', self.shell[keyname][0], text, 1)
+            self.convetedstrs.append(new_str)
 
         if re.match(r'\d*,\d*', matched[0]):
             assert self.shell == None, "shell can't be setted before this time"
@@ -37,21 +36,9 @@ class Pattern:
             lower = int(regxp.group(1))
             max = int(regxp.group(2))
             for i in range(lower, max+1) :
-                new_task = self.__newCloneTask()
-                new_task[area] = re.sub(r'\$\{(.*?)\}', str(i), text, 1)
-                self.faketasks.append(new_task)
+                new_str = re.sub(r'\$\{(.*?)\}', str(i), text, 1)
+                self.convetedstrs.append(new_str)
         return True
 
-    def getConvertdShells(self):
-        faketask = {
-            "action": 'faketask',
-            "shellgroup": self.task_entry.get('shellgroup'),
-            "shellid": self.task_entry.get('shellid'),
-            "datas": self.task_entry.get('data'),
-            "subaction": self.faketasks
-        }
-        return faketask
-
-    def __newCloneTask(self):
-        new_task = copy.deepcopy(self.task_entry)
-        return new_task
+    def getConvertdStr(self):
+        return self.convetedstrs

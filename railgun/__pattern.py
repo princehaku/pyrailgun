@@ -4,7 +4,6 @@
 #    Time: 上午1:01
 #
 import re
-import copy
 
 class Pattern:
     def __init__(self, task_entry=None, shell=None):

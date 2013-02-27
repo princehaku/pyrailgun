@@ -2,7 +2,7 @@ action: main
 name: "vc动漫"
 subaction:
 - action: fetcher
-  url: http://www.verycd.com/base/cartoon/page${1,1}
+  url: http://www.verycd.com/base/cartoon/page${1,2}${1,3}
   subaction:
   - action: parser
     rule: .entry_cover_list li

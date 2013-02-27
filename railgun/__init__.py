@@ -46,6 +46,8 @@ class RailGun():
             return
             # do current action
         actionname = task_entry["action"].strip()
+        if None != task_entry.get('shellid'):
+            print "current shell [", task_entry.get('shellgroup'), ":", task_entry.get('shellid'), "]"
         if actionname == 'main':
             task_entry = self.__main(task_entry)
         if actionname == 'shell':
@@ -63,12 +65,12 @@ class RailGun():
             if (subtask['action'] != 'faketask' and task_entry.get('datas') != None):
                 subtask['datas'] = task_entry.get('datas')
                 # ignore datas field
-            if str(subtask) == 'datas':
+            if 'datas' == str(subtask):
                 continue;
                 # passed to subtask
-            if task_entry.get('shellgroup') != None:
+            if None != task_entry.get('shellgroup'):
                 subtask['shellgroup'] = task_entry.get('shellgroup')
-            if task_entry.get('shellid') != None:
+            if None != task_entry.get('shellid'):
                 subtask['shellid'] = task_entry.get('shellid')
             self.__parserShells(subtask)
         return
@@ -79,9 +81,7 @@ class RailGun():
 
     def __fetch(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry))
-        urls = [task_entry['url'].strip()]
-        if (p.convertPattern('url')):
-            urls = p.getConvertdStr()
+        urls = p.convertPattern('url')
         s = requests.session()
         task_entry['datas'] = []
         for url in urls:
@@ -105,14 +105,14 @@ class RailGun():
             soup = BeautifulSoup(data)
             parsed_data_sps = soup.select(rule)
             # set pos
-            if (None != pos) :
+            if (None != pos):
                 if pos > len(parsed_data_sps) - 1:
                     parsed_data_sps = []
-                else :
+                else:
                     parsed_data_sps = [parsed_data_sps[pos]]
             for tag in parsed_data_sps:
                 tag = unicode(tag)
-                if (None != attr) :
+                if (None != attr):
                     attr_data = BeautifulSoup(tag)
                     tag = attr_data.contents[0].get(attr)
                 if strip == 'true':
@@ -166,5 +166,4 @@ class RailGun():
             return None
         shellid = task_entry['shellid']
         shell = self.shell_groups[shellgroup][shellid]
-        print "get shell [", shellgroup, ":", shellid, "]"
         return shell

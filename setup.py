@@ -1,5 +1,5 @@
 NAME = 'PyRailgun'
-VERSION = '0.10'
+VERSION = '0.11'
 DESCRIPTION = "Fast Craweler for Python"
 LONG_DESCRIPTION = """\
 this is a simple Craweler Framework
@@ -19,7 +19,7 @@ AUTHOR_EMAIL = 'baizhongwei@163.com'
 LICENSE = "MIT"
 PLATFORMS = "Any"
 URL = "https://github.com/princehaku/pyrailgun"
-DOWNLOAD_URL = "http://lab.3haku.net/pyrailgun/%s-%s.tar.gz" % (NAME, VERSION)
+DOWNLOAD_URL = "https://pypi.python.org/packages/source/P/PyRailgun/%s-%s.tar.gz" % (NAME, VERSION)
 CLASSIFIERS = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -52,7 +52,11 @@ if __name__ == '__main__':
         url=URL,
         download_url=DOWNLOAD_URL,
         classifiers=CLASSIFIERS,
-        packages=find_packages(),
+        packages=['railgun'],
+        include_package_data = True,
+        package_data = {
+            'railgun':['*.conf']
+        },
         requires=REQUIRS
     )
 

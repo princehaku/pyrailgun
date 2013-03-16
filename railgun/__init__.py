@@ -12,20 +12,21 @@ from __pattern import Pattern
 from __logging import Logger
 
 
-class RailGun():
+class RailGun:
     def __init__(self):
-        self.config_data = self.shell_groups = {}
+        self.config_data = {}
+        self.shell_groups = {}
         self.logger = Logger.getLogger()
 
     # set taskdata into me
-    def setTaskData(self, taskdata):
-        self.taskData = dict(taskdata)
+    def setTaskData(self, task_data):
+        self.task_data = dict(task_data)
 
     # set taskdata into me via a yaml file
     def setTask(self, tfile):
         assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
-        taskData = yaml.load(tfile)
-        self.taskData = dict(taskData)
+        task_data = yaml.load(tfile)
+        self.task_data = dict(task_data)
 
     # set some running configure
     def setConfig(self, config_key, config_value):
@@ -33,12 +34,12 @@ class RailGun():
 
     # do work
     def fire(self):
-        self.__parserShells(self.taskData)
+        self.__parserShells(self.task_data)
         return self.shell_groups
 
     # get parsed shells
-    def getShells(self, groupname='default'):
-        return self.shell_groups.get(groupname)
+    def getShells(self, group_name='default'):
+        return self.shell_groups.get(group_name)
 
     def __parserShells(self, task_entry):
         """

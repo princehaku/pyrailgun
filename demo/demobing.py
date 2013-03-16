@@ -12,11 +12,13 @@ sys.setdefaultencoding("utf-8")
 
 railgun = RailGun()
 railgun.setTask(file("bing.yaml"));
-railgun.setConfig("q", urllib.quote('帝国'))
+query = raw_input("Please Input Query\r\n")
+railgun.setConfig("q", urllib.quote(query))
 railgun.fire();
 nodes = railgun.getShells()
 file = file("demo_bing.txt", "w+")
 for id in nodes:
     node = nodes[id]
+    print "entry  " + node.get('title',[""])[0]
     file.write(node.get('title',[""])[0] + "\r\n")
     file.write(node.get('description',[""])[0] + "\r\n====================================\r\n")

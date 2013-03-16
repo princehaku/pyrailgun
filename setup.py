@@ -1,5 +1,5 @@
 NAME = 'PyRailgun'
-VERSION = '0.11'
+VERSION = '0.12'
 DESCRIPTION = "Fast Craweler for Python"
 LONG_DESCRIPTION = """\
 this is a simple Craweler Framework
@@ -7,7 +7,7 @@ this is a simple Craweler Framework
 from railgun import RailGun
 
 railgun = RailGun()
-railgun.setTask(file("testsite.yaml"));
+railgun.setTask(file("basic.yaml"));
 railgun.fire();
 nodes = railgun.getShells('default')
 print nodes
@@ -21,7 +21,7 @@ PLATFORMS = "Any"
 URL = "https://github.com/princehaku/pyrailgun"
 DOWNLOAD_URL = "https://pypi.python.org/packages/source/P/PyRailgun/%s-%s.tar.gz" % (NAME, VERSION)
 CLASSIFIERS = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",

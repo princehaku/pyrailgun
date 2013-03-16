@@ -54,9 +54,10 @@ class RailGun():
             self.logger.info("info current shell [" + task_entry.get('shellgroup') + ":" + \
                              str(task_entry.get('shellid')) + "]")
 
-        actionMap = { 'main': "__main"
+        actionMap = {
+            'main': "__main"
             , 'shell': '__createShell'
-            #, 'faketask': '__faketask'
+            , 'faketask': '__faketask'
             , 'fetcher': '__fetch'
             , 'parser': '__parser'
         }
@@ -87,11 +88,11 @@ class RailGun():
         return
 
     def __main(self, task_entry):
-        self.logger.info("task_entry['name']" + "运行")
+        self.logger.info(task_entry['name'] + " is now running")
         return task_entry
 
     def __fetch(self, task_entry):
-        p = Pattern(task_entry, self.__getCurrentShell(task_entry))
+        p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.config_data)
         urls = p.convertPattern('url')
         s = requests.session()
         task_entry['datas'] = []
@@ -100,8 +101,14 @@ class RailGun():
             if "" == url:
                 # do not fetch null url
                 continue
-            data = s.get(url).text
+            response = s.get(url)
+            if 200 != response.status_code :
+                self.logger.error("fetch " + url +" failed with code" + response.status_code)
+            data = response.text
             task_entry['datas'].append(data)
+        return task_entry
+
+    def __faketask(self, task_entry):
         return task_entry
 
     def __parser(self, task_entry):

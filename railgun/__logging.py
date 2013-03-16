@@ -11,6 +11,12 @@ class Logger:
 
     @staticmethod
     def InitLogConf():
+        """
+        >>> Logger.getLogger() # doctest: +ELLIPSIS
+        load logging configure from logging.conf
+        <logging.RootLogger object at ...>
+        """
+
         if os.path.isfile("logging.conf"):
             file_path = "logging.conf"
         else :
@@ -19,19 +25,25 @@ class Logger:
         Logger.log_instance = logging.config.fileConfig(file_path)
 
     @staticmethod
-    def GetLogger(name = ""):
+    def getLogger(name = ""):
+        """
+        :param name: string
+        :return: Logger
+
+
+        doctest:
+        >>> Logger.getLogger().debug("debug message") # doctest: +ELLIPSIS
+        [...] (DEBUG) : debug message
+        >>> Logger.getLogger().info("info message") # doctest: +ELLIPSIS
+        [...] (INFO) : info message
+        >>> Logger.getLogger("c1").debug("customed message") # doctest: +ELLIPSIS
+        [...] (DEBUG) : customed message
+        """
         if Logger.log_instance == None:
             Logger.InitLogConf()
         Logger.log_instance = logging.getLogger(name)
         return Logger.log_instance
 
 if __name__ == "__main__":
-    logger = Logger.GetLogger()
-    logger.debug("debug message")
-    logger.info("info message")
-    logger.warn("warn message")
-    logger.error("error message")
-    logger.critical("critical message")
-
-    logHello = Logger.GetLogger("c1")
-    logHello.info("Hello world!")
+    import doctest
+    doctest.testmod()

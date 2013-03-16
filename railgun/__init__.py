@@ -14,19 +14,18 @@ from __logging import Logger
 
 class RailGun():
     def __init__(self):
-        self.config_data = dict([])
-        self.shell_groups = dict([])
-        self.logger = Logger.GetLogger()
+        self.config_data = self.shell_groups = {}
+        self.logger = Logger.getLogger()
 
     # set taskdata into me
     def setTaskData(self, taskdata):
-        self.taskdata = dict(taskdata)
+        self.taskData = dict(taskdata)
 
     # set taskdata into me via a yaml file
     def setTask(self, tfile):
         assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
-        taskdata = yaml.load(tfile)
-        self.taskdata = dict(taskdata)
+        taskData = yaml.load(tfile)
+        self.taskData = dict(taskData)
 
     # set some running configure
     def setConfig(self, config_key, config_value):
@@ -34,7 +33,7 @@ class RailGun():
 
     # do work
     def fire(self):
-        self.__parserShells(self.taskdata)
+        self.__parserShells(self.taskData)
         return self.shell_groups
 
     # get parsed shells
@@ -42,8 +41,11 @@ class RailGun():
         return self.shell_groups.get(groupname)
 
     def __parserShells(self, task_entry):
-        if (None == task_entry):
-            return
+        """
+
+        :param task_entry:
+        :return:
+        """
         if (isinstance(task_entry, unicode)):
             return
             # do current action
@@ -51,25 +53,31 @@ class RailGun():
         if None != task_entry.get('shellid'):
             self.logger.info("info current shell [" + task_entry.get('shellgroup') + ":" + \
                              str(task_entry.get('shellid')) + "]")
-        if actionname == 'main':
-            task_entry = self.__main(task_entry)
-        if actionname == 'shell':
-            task_entry = self.__createShell(task_entry)
-        if actionname == 'faketask':
-            pass
-        if actionname == 'fetcher':
-            task_entry = self.__fetch(task_entry)
-        if actionname == 'parser':
-            task_entry = self.__parser(task_entry)
+
+        actionMap = { 'main': "__main"
+            , 'shell': '__createShell'
+            #, 'faketask': '__faketask'
+            , 'fetcher': '__fetch'
+            , 'parser': '__parser'
+        }
+
+        if actionname in actionMap.keys():
+            worker = getattr(self
+                , '_RailGun{}'.format(actionMap[actionname])
+            )
+            if callable(worker):
+                task_entry = worker(task_entry)
+
         if (None == task_entry.get('subaction')):
             return
+
         for subtask in task_entry['subaction']:
             # if entry is not fakedshell and entry has datas then copy to subtask
             if (subtask['action'] != 'faketask' and task_entry.get('datas') != None):
                 subtask['datas'] = task_entry.get('datas')
                 # ignore datas field
             if 'datas' == str(subtask):
-                continue;
+                continue
                 # passed to subtask
             if None != task_entry.get('shellgroup'):
                 subtask['shellgroup'] = task_entry.get('shellgroup')
@@ -143,11 +151,11 @@ class RailGun():
         self.logger.info(str(len(datas)) + " shells created")
         shellgroup = task_entry.get('group', 'default')
         shellid = 0
-        self.shell_groups[shellgroup] = dict({})
+        self.shell_groups[shellgroup] = {}
         for data in datas:
             shellid += 1
             # init shell
-            self.shell_groups[shellgroup][shellid] = dict([])
+            self.shell_groups[shellgroup][shellid] = {}
             # task entry splited into pieces
             # sub actions nums = now sub nums * shell num
             subact = {

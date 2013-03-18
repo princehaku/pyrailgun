@@ -104,7 +104,7 @@ class RailGun:
                 continue
             response = s.get(url)
             if 200 != response.status_code :
-                self.logger.error("fetch " + url +" failed with code" + response.status_code)
+                self.logger.error("fetch " + url +" failed with code " + (str)(response.status_code))
             data = response.text
             task_entry['datas'].append(data)
         return task_entry

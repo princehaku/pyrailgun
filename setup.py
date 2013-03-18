@@ -2,17 +2,11 @@ NAME = 'PyRailgun'
 VERSION = '0.12'
 DESCRIPTION = "Fast Craweler for Python"
 LONG_DESCRIPTION = """\
-this is a simple Craweler Framework
+This is a simple Crawl Framework
 
-from railgun import RailGun
+you can crawler website more easily
 
-railgun = RailGun()
-railgun.setTask(file("basic.yaml"));
-railgun.fire();
-nodes = railgun.getShells('default')
-print nodes
-
-see test for more infomation
+see https://github.com/princehaku/pyrailgun/tree/master/demo for more infomation
 """
 AUTHOR = "zhongwei bai"
 AUTHOR_EMAIL = 'baizhongwei@163.com'

@@ -145,7 +145,7 @@ class RailGun:
         self.logger.info("after parsing " + str(len(parsed_datas)))
         # set data to shell
         current_shell = self.__getCurrentShell(task_entry)
-        if current_shell != None and task_entry.get('setField') != None:
+        if current_shell != None and task_entry.get('setField') != None and len(parsed_datas) > 0:
             fieldname = task_entry.get('setField')
             self.logger.debug("set" + fieldname + "as" + str(parsed_datas));
             current_shell[fieldname] = parsed_datas

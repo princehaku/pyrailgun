@@ -39,7 +39,7 @@ class Pattern:
         matched = pattern.findall(text)
         # if doesn't match. just return it
         if not matched:
-            return text
+            return [text]
 
         self.logger.info("Pattern Found as " + matched[0])
 

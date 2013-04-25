@@ -107,7 +107,7 @@ class RailGun:
         urls = p.convertPattern('url')
         s = requests.session()
         cookie_str = p.convertPattern('cookie')
-        cookie_str_arr = cookie_str.split("&")
+        cookie_str_arr = cookie_str[0].split("&")
         for str_param in cookie_str_arr:
             cookie_params = str_param.split("=")
             s.cookies.set(cookie_params[0], cookie_params[1])

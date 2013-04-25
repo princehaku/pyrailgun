@@ -81,3 +81,6 @@ print nodes
 
 然后你就可以得到一个包含了所有解析后数据的节点列表
 [{img:xxx,src:xxx,score:xxx,dest:xxx,description:xxx},{img:xxx,src:xxx,score:xxx,dest:xxx,description:xxx}]
+
+
+Version 0.14 支持json格式了!

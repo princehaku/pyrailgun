@@ -1,5 +1,5 @@
 NAME = 'PyRailgun'
-VERSION = '0.13'
+VERSION = '0.14'
 DESCRIPTION = "Fast Crawler For Python"
 LONG_DESCRIPTION = """\
 This is a simple python crawler framework for human

@@ -8,11 +8,11 @@ from __logging import Logger
 
 
 class Pattern:
-    def __init__(self, task_entry=None, shell=None, config_data=None):
+    def __init__(self, task_entry=None, shell=None, global_data=None):
         assert (task_entry != None), "task_entry can't be None"
         self.task_entry = task_entry
         self.shell = shell
-        self.config_data = config_data
+        self.global_data = global_data
         self.logger = Logger.getLogger()
 
     # deep.. and deep recursion
@@ -58,10 +58,10 @@ class Pattern:
 
             converted_strings.append(pattern.sub(replacedst, text, 1))
 
-        # support ${@} as railgun's config
+        # support ${@} as railgun's global data sets
         if matched[0].startswith('@'):
             key_name = matched[0][1:]
-            replacedst = self.config_data.get(key_name)
+            replacedst = self.global_data.get(key_name)
             assert None != replacedst, "config_data " + key_name + " is empty"
             converted_strings.append(pattern.sub(replacedst, text, 1))
 

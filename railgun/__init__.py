@@ -5,7 +5,7 @@
 #
 __author__ = 'haku'
 import re
-import requests,socket
+import requests, socket
 import os, yaml, json
 from bs4 import BeautifulSoup
 from __pattern import Pattern
@@ -101,16 +101,15 @@ class RailGun:
 
     def __fetch(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
-        if not task_entry['cookie']:
-            task_entry['cookie'] = ""
         timeout = task_entry.get('timeout', 120)
         urls = p.convertPattern('url')
         s = requests.session()
-        cookie_str = p.convertPattern('cookie')
-        cookie_str_arr = cookie_str[0].split("&")
-        for str_param in cookie_str_arr:
-            cookie_params = str_param.split("=")
-            s.cookies.set(cookie_params[0], cookie_params[1])
+        if task_entry.get('cookie'):
+            cookie_str = p.convertPattern('cookie')
+            cookie_str_arr = cookie_str[0].split("&")
+            for str_param in cookie_str_arr:
+                cookie_params = str_param.split("=")
+                s.cookies.set(cookie_params[0], cookie_params[1])
         task_entry['datas'] = []
         for url in urls:
             self.logger.info("fetching " + url)
@@ -123,7 +122,7 @@ class RailGun:
                 if 200 != response.status_code:
                     self.logger.error("fetch " + url + " failed with code " + (str)(response.status_code))
                 data = response.text
-            except :
+            except:
                 self.logger.error("fetch " + url + " failed in sockets")
             task_entry['datas'].append(data)
         return task_entry

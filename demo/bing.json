@@ -5,7 +5,6 @@
         {
             "action": "fetcher",
             "url": "http://www.bing.com/search?q=${@q}",
-            "cookie": "nk=123&w=123",
             "timeout": 1,
             "subaction": [
                 {

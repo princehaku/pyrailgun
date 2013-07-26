@@ -1,5 +1,5 @@
 NAME = 'PyRailgun'
-VERSION = '0.14'
+VERSION = '0.15'
 DESCRIPTION = "Fast Crawler For Python"
 LONG_DESCRIPTION = """\
 This is a simple python crawler framework for human
@@ -46,10 +46,10 @@ if __name__ == '__main__':
         url=URL,
         download_url=DOWNLOAD_URL,
         classifiers=CLASSIFIERS,
-        packages=['railgun'],
+        packages=['pyrailgun'],
         include_package_data = True,
         package_data = {
-            'railgun':['*.conf']
+            'pyrailgun':['*.conf']
         },
         requires=REQUIRS
     )

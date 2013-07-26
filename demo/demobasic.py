@@ -4,7 +4,7 @@
 #    Time: 上午1:01
 #
 __author__ = 'haku'
-from railgun import RailGun
+from pyrailgun import RailGun
 import sys
 
 reload(sys)

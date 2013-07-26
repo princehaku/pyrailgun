@@ -1,5 +1,5 @@
-NAME = 'PyRailgun'
-VERSION = '0.15'
+NAME = 'pyrailgun'
+VERSION = '0.16'
 DESCRIPTION = "Fast Crawler For Python"
 LONG_DESCRIPTION = """\
 This is a simple python crawler framework for human
@@ -13,7 +13,7 @@ AUTHOR_EMAIL = 'baizhongwei@163.com'
 LICENSE = "MIT"
 PLATFORMS = "Any"
 URL = "https://github.com/princehaku/pyrailgun"
-DOWNLOAD_URL = "https://pypi.python.org/packages/source/P/PyRailgun/%s-%s.tar.gz" % (NAME, VERSION)
+DOWNLOAD_URL = "https://pypi.python.org/packages/source/P/pyrailgun/%s-%s.tar.gz" % (NAME, VERSION)
 CLASSIFIERS = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -25,9 +25,9 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 REQUIRS = [
-    'pyyaml',
-    'beautifulsoup4',
-    'requests'
+    'pyyaml (>=3.10)',
+    'beautifulsoup4 (>=4.2.0)',
+    'requests (>=1.2.3)'
     ]
 
 from setuptools import setup, find_packages

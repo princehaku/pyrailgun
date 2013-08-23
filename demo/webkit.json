@@ -4,8 +4,8 @@
     "subaction": [
         {
             "action": "fetcher",
-            "url": "http://s.weibo.com/weibo/%25E6%25B7%2598%25E5%25AE%259D%25E6%2590%259C%25E7%25B4%25A2&xsort=time&page=${1,2}",
-            "cookie": "nk=123&w=123",
+            "url": "http://s.weibo.com:8888/weibo/%25E6%25B7%2598%25E5%25AE%259D%25E6%2590%259C%25E7%25B4%25A2&xsort=time&page=${1,2}",
+            "cookie": "bj=123&sdjk=123&hjsd=123",
             "timeout": 10,
             "webkit": true,
             "subaction": [

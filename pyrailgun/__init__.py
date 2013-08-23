@@ -104,6 +104,7 @@ class RailGun:
 
         if task_entry.get("webkit", False):
             import gtk
+
             gtk.gdk.threads_init()
             from cwebbrowser.CWebBrowser import CWebBrowser
 
@@ -116,8 +117,13 @@ class RailGun:
                 if not url:
                     # do not fetch null url
                     continue
-                web = CWebBrowser();
-                web.open(url);
+                web = CWebBrowser(url);
+                if task_entry.get('cookie'):
+                    cookie_str = p.convertPattern('cookie')
+                    cookie_str_arr = cookie_str[0].split("&")
+                    for str_param in cookie_str_arr:
+                        cookie_params = str_param.split("=")
+                        web.add_cookie(cookie_params[0].strip(), cookie_params[1].strip())
                 web.start();
                 gtk.threads_enter()
                 gtk.main()
@@ -139,7 +145,7 @@ class RailGun:
             cookie_str_arr = cookie_str[0].split("&")
             for str_param in cookie_str_arr:
                 cookie_params = str_param.split("=")
-                s.cookies.set(cookie_params[0], cookie_params[1])
+                s.cookies.set(cookie_params[0].strip(), cookie_params[1].strip())
         task_entry['datas'] = []
         for url in urls:
             self.logger.info("fetching " + url)

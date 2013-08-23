@@ -11,7 +11,7 @@
             "subaction": [
                 {
                     "action": "parser",
-                    "rule": ".feed_list",
+                    "rule": ".content",
                     "subaction": [
                         {
                             "action": "shell",
@@ -19,7 +19,8 @@
                                 {
                                     "action": "parser",
                                     "setField": "content",
-                                    "rule": ".content"
+                                    "position" : 0,
+                                    "rule": "p"
                                 }
                             ]
                         }

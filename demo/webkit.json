@@ -21,8 +21,7 @@
                                     "setField": "content",
                                     "rule": ".content"
                                 }
-                            ],
-                            "group": "default"
+                            ]
                         }
                     ]
                 }

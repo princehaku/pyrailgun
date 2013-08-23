@@ -101,6 +101,36 @@ class RailGun:
 
     def __fetch(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
+
+        if task_entry.get("webkit", False):
+            import gtk
+            gtk.gdk.threads_init()
+            from cwebbrowser.CWebBrowser import CWebBrowser
+
+            task_entry['datas'] = []
+
+            urls = p.convertPattern('url')
+            for url in urls:
+                self.logger.info("fetching " + url)
+                data = ""
+                if not url:
+                    # do not fetch null url
+                    continue
+                web = CWebBrowser();
+                web.open(url);
+                web.start();
+                gtk.threads_enter()
+                gtk.main()
+                gtk.threads_leave()
+
+                response = web.getResponse();
+
+                if 200 != response.status_code:
+                    self.logger.error("fetch " + url + " failed with code " + (str)(response.status_code))
+                data = response.text
+                task_entry['datas'].append(data)
+            return task_entry
+
         timeout = task_entry.get('timeout', 120)
         urls = p.convertPattern('url')
         s = requests.session()

@@ -1,5 +1,5 @@
 NAME = 'pyrailgun'
-VERSION = '0.16'
+VERSION = '0.17'
 DESCRIPTION = "Fast Crawler For Python"
 LONG_DESCRIPTION = """\
 This is a simple python crawler framework for human
@@ -51,6 +51,6 @@ if __name__ == '__main__':
         package_data = {
             'pyrailgun':['*.conf']
         },
-        requires=REQUIRS
+        requires=REQUIRS,
     )
 

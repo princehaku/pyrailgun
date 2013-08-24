@@ -1,12 +1,23 @@
 NAME = 'pyrailgun'
-VERSION = '0.17'
+VERSION = '0.18'
 DESCRIPTION = "Fast Crawler For Python"
 LONG_DESCRIPTION = """\
 This is a simple python crawler framework for human
 
 you can crawler website more easily
 
-see https://github.com/princehaku/pyrailgun/tree/master/demo for more infomation
+only need a json file to descrip your crawler
+
+
+version : 0.18
+optional module: webkit
+
+if you have gi.Webkit installed, you can specific to use webkit to crawler html after javascript rendered
+
+see https://github.com/princehaku/pyrailgun/tree/master/demo for some demos
+
+see https://github.com/princehaku/pyrailgun for more infomation
+
 """
 AUTHOR = "zhongwei bai"
 AUTHOR_EMAIL = 'baizhongwei@163.com'

@@ -1,5 +1,5 @@
 NAME = 'pyrailgun'
-VERSION = '0.19'
+VERSION = '0.20'
 DESCRIPTION = "Fast Crawler For Python"
 LONG_DESCRIPTION = """\
 This is a simple python crawler framework for human
@@ -9,7 +9,6 @@ you can crawler website more easily
 only need a json file to descrip your crawler
 
 
-version : 0.19
 optional module: webkit
 
 if you have gi.Webkit installed, you can specific to use webkit to crawler html after javascript rendered

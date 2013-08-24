@@ -6,7 +6,7 @@
 __author__ = 'haku'
 import re
 import requests
-import os, yaml, json
+import yaml, json
 from bs4 import BeautifulSoup
 from __pattern import Pattern
 from __logging import Logger

@@ -12,7 +12,8 @@ from gi.repository import GLib
 from gi.repository import WebKit
 from gi.repository import Soup
 
-import sys
+import time
+
 
 class CWebView(WebKit.WebView):
     def __init__(self):
@@ -22,8 +23,8 @@ class CWebView(WebKit.WebView):
         self.init_cookie();
 
     def add_cookie(self, name, value, domain):
-
-        n_cookie = Soup.Cookie.new(name.encode("utf-8"), value.encode("utf-8"), domain.encode("utf-8"), "/", sys.maxint - 100)
+        n_cookie = Soup.Cookie.new(name.encode("utf-8"), value.encode("utf-8"), domain.encode("utf-8"), "/",
+                                   time.time() + 86400)
         self.soup_cookie.add_cookie(n_cookie)
 
 

@@ -5,7 +5,7 @@
 #
 __author__ = 'haku'
 import re
-import requests, socket
+import requests
 import os, yaml, json
 from bs4 import BeautifulSoup
 from __pattern import Pattern
@@ -99,50 +99,52 @@ class RailGun:
         self.logger.info(task_entry['name'] + " is now running")
         return task_entry
 
-    def __fetch(self, task_entry):
+    # using webkit to fetch url
+    def __fetch_webkit(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
+        from gi.repository import Gtk
+        from gi.repository import Gdk
 
-        if task_entry.get("webkit", False):
-            import gtk
+        Gdk.threads_init()
+        from cwebbrowser.CWebBrowser import CWebBrowser
 
-            gtk.gdk.threads_init()
-            from cwebbrowser.CWebBrowser import CWebBrowser
+        task_entry['datas'] = []
 
-            task_entry['datas'] = []
+        urls = p.convertPattern('url')
+        for url in urls:
+            self.logger.info("fetching " + url)
+            data = ""
+            if not url:
+                # do not fetch null url
+                continue
+            web = CWebBrowser(url);
+            if task_entry.get('cookie'):
+                cookie_str = p.convertPattern('cookie')
+                cookie_str_arr = cookie_str[0].split(";")
+                for str_param in cookie_str_arr:
+                    cookie_params = str_param.split("=")
+                    web.add_cookie(cookie_params[0].strip(), cookie_params[1].strip())
+            web.start();
+            Gtk.main()
 
-            urls = p.convertPattern('url')
-            for url in urls:
-                self.logger.info("fetching " + url)
-                data = ""
-                if not url:
-                    # do not fetch null url
-                    continue
-                web = CWebBrowser(url);
-                if task_entry.get('cookie'):
-                    cookie_str = p.convertPattern('cookie')
-                    cookie_str_arr = cookie_str[0].split("&")
-                    for str_param in cookie_str_arr:
-                        cookie_params = str_param.split("=")
-                        web.add_cookie(cookie_params[0].strip(), cookie_params[1].strip())
-                web.start();
-                gtk.threads_enter()
-                gtk.main()
-                gtk.threads_leave()
+            response = web.getResponse();
 
-                response = web.getResponse();
-
-                if 200 != response.status_code:
-                    self.logger.error("fetch " + url + " failed with code " + (str)(response.status_code))
+            if 200 != response.status_code:
+                self.logger.error("fetch " + url + " failed with code " + (str)(response.status_code))
+            else:
                 data = response.text
-                task_entry['datas'].append(data)
-            return task_entry
+            task_entry['datas'].append(data)
+        return task_entry
+
+    def __fetch_requests(self, task_entry):
+        p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
 
         timeout = task_entry.get('timeout', 120)
         urls = p.convertPattern('url')
         s = requests.session()
         if task_entry.get('cookie'):
             cookie_str = p.convertPattern('cookie')
-            cookie_str_arr = cookie_str[0].split("&")
+            cookie_str_arr = cookie_str[0].split(";")
             for str_param in cookie_str_arr:
                 cookie_params = str_param.split("=")
                 s.cookies.set(cookie_params[0].strip(), cookie_params[1].strip())
@@ -163,9 +165,17 @@ class RailGun:
             task_entry['datas'].append(data)
         return task_entry
 
+    # fetch something
+    def __fetch(self, task_entry):
+
+        if task_entry.get("webkit", False):
+            return self.__fetch_webkit(task_entry)
+        return self.__fetch_requests(task_entry)
+
     def __faketask(self, task_entry):
         return task_entry
 
+    # parse with soup
     def __parser(self, task_entry):
         rule = task_entry['rule'].strip()
         self.logger.info("parsing with rule " + rule)

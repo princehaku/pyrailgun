@@ -5,35 +5,45 @@
 #
 __author__ = 'haku'
 
-import jswebkit
-import threading, re
-import CWebView, gtk
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+from gi.repository import GLib
+from gi.repository import WebKit
+from gi.repository import Soup
 
+
+import threading, re
+import CWebView
 
 class Response:
-    status_code = 500;
-    text = None;
+    status_code = 500
+    text = None
 
 
 class CWebBrowser(threading.Thread):
-    loaded = False;
-    innerBody = None;
-    innerHead = None;
+    loaded = False
+    innerBody = None
+    innerHead = None
 
     def __init__(self, url):
-        threading.Thread.__init__(self);
-        self.url = url;
+        threading.Thread.__init__(self)
+        self.url = url
         pattern = re.compile(r"://(.*?)/")
         matched = pattern.findall(url)
-        assert matched, url + " Contains No Validated Domain";
+        assert matched, url + " Contains No Validated Domain"
 
-        domain = matched[0].split(":");
-        self.domain = domain[0];
-        self.webview = CWebView.CWebView();
+        domain = matched[0].split(":")
+        self.domain = domain[0]
+        self.webview = CWebView.CWebView()
+
+    # not implements
+    def set_timeout(self, timeout):
+        pass
 
     def add_cookie(self, name, value):
         print "Cookie Add TO ", self.domain, " ", name, " ", value
-        self.webview.add_cookie(name, value, self.domain);
+        self.webview.add_cookie(name, value, self.domain)
         pass
 
     def run(self):
@@ -45,22 +55,20 @@ class CWebBrowser(threading.Thread):
     def getResponse(self):
         response = Response()
         if (self.innerBody != None):
-            response.status_code = 200;
-
-        response.text = self.innerBody;
+            response.status_code = 200
+        response.text = self.innerBody
         return response
 
 
     def load_error(self, view, frame, uri, userdata):
         print "Load Error ", uri
         self.loaded = True
-        #gtk.mainquit();
+        #Gtk.main_quit()();
 
 
     def load_finished(self, view, frame):
         print "Done"
-        js = jswebkit.JSContext(self.webview.get_main_frame().get_global_context())
-        self.innerBody = str(js.EvaluateScript('document.body.innerHTML'))
-        self.innerHead = str(js.EvaluateScript('document.head.innerHTML'))
+        self.innerHead = self.webview.get_dom_document().get_head().get_inner_html().encode("utf-8")
+        self.innerBody = self.webview.get_dom_document().get_body().get_inner_html().encode("utf-8")
         self.loaded = True
-        gtk.mainquit();
+        Gtk.main_quit()

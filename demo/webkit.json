@@ -1,11 +1,11 @@
 {
-    "name": "bing searcher",
+    "name": "webkit crawel",
     "action": "main",
     "subaction": [
         {
             "action": "fetcher",
-            "url": "http://s.weibo.com:8888/weibo/%25E6%25B7%2598%25E5%25AE%259D%25E6%2590%259C%25E7%25B4%25A2&xsort=time&page=${1,2}",
-            "cookie": "bj=123&sdjk=123&hjsd=123",
+            "url": "http://s.weibo.com/weibo/%25E6%25B7%2598%25E5%25AE%259D%25E6%2590%259C%25E7%25B4%25A2&xsort=time&page=${1,2}",
+            "cookie": "UOR=vip.xunlei.com,widget.weibo.com,www.baidu.com; SINAGLOBAL=6845762193311.736.1375458040027; ULV=1377325414806:52:52:15:6657893754447.8125.1377325414804:1377305617714; ALF=1379917407; SinaRot_wb_r_topic=29; wvr=5; SUS=SID-1763365093-1377325408-JA-xomt8-3db34dc8d0da7f5f37b6ce5b7739c76f; SUE=es%3D178fff61645dccf2a8e94a208fd2422b%26ev%3Dv1%26es2%3D0028cadd8c1bed6221d464da5c2c43d6%26rs0%3D1hPLglxNxEST8tfaPT%252FLOzE1EjRnNOPEUYa%252BQkR9dCCgdEDcUMisrpTJPFau3icBc10e1cSkfGNUjTbvODJzxQEn4IjpFIM%252BbEEU8ppTVrOYQYEaHDAA0l4g9RWNZrXdQoGeZHy1ENk13PguO%252BCVfGW1lREicLphiraxjhwabFU%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1377325408%26et%3D1377411808%26d%3Dc909%26i%3D15d3%26us%3D1%26vf%3D0%26vt%3D0%26ac%3D2%26st%3D0%26uid%3D1763365093%26name%3Dbaizhongwei%2540163.com%26nick%3Dbaizhongwei%26fmp%3D%26lcp%3D2011-12-03%252020%253A13%253A41; SSOLoginState=1377325408; _s_tentry=login.sina.com.cn; Apache=6657893754447.8125.1377325414804; USRUG=usr413115; USRHAWB=usr313120",
             "timeout": 10,
             "webkit": true,
             "subaction": [

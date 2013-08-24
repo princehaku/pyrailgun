@@ -5,37 +5,35 @@
 #
 __author__ = 'haku'
 
-import webkit, ctypes
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+from gi.repository import GLib
+from gi.repository import WebKit
+from gi.repository import Soup
 
-try:
-    libwebkit = ctypes.CDLL('libwebkitgtk-1.0.so.0')
-except:
-    try:
-        libwebkit = ctypes.CDLL('libwebkit-1.0.so.2')
-    except:
-        libwebkit = ctypes.CDLL('libwebkitgtk-1.0.so')
-
-libgobject = ctypes.CDLL('libgobject-2.0.so.0')
-libsoup = ctypes.CDLL('libsoup-2.4.so.1')
+import sys
 
 
-class CWebView(webkit.WebView):
+class CWebView(WebKit.WebView):
     def __init__(self):
-        webkit.WebView.__init__(self);
+        WebKit.WebView.__init__(self);
         self.set_settings();
         self.init_signals();
         self.init_cookie();
 
     def add_cookie(self, name, value, domain):
-        soup_cookie = libsoup.soup_cookie_new(name.encode("ascii"), value.encode("utf-8"), domain.encode("utf-8"), "/")
-        libsoup.soup_cookie_jar_add_cookie(self.soup_cookie, soup_cookie)
+
+        n_cookie = Soup.Cookie.new(name.encode("utf-8"), value.encode("utf-8"), domain.encode("utf-8"), "/", sys.maxint - 100)
+        self.soup_cookie.add_cookie(n_cookie)
+
 
     def init_cookie(self):
-        session = libwebkit.webkit_get_default_session()
-        #soup_cookie = libsoup.soup_cookie_jar_new()
-        soup_cookie = libsoup.soup_cookie_jar_text_new("./cookie.txt", False)
-        libgobject.g_object_set(session, 'add-feature', soup_cookie, None)
-        self.soup_cookie = soup_cookie
+        self.soup_cookie = Soup.CookieJar.new()
+        self.soup_cookie.set_accept_policy(Soup.CookieJarAcceptPolicy.ALWAYS)
+        session = WebKit.get_default_session()
+        session.add_feature(self.soup_cookie)
+
 
     def init_signals(self):
         self.connect("console-message", self._javascript_console_message)

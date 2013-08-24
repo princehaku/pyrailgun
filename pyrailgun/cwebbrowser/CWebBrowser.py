@@ -12,9 +12,10 @@ from gi.repository import GLib
 from gi.repository import WebKit
 from gi.repository import Soup
 
-
 import threading, re
 import CWebView
+from ..__logging import Logger
+
 
 class Response:
     status_code = 500
@@ -28,6 +29,7 @@ class CWebBrowser(threading.Thread):
 
     def __init__(self, url):
         threading.Thread.__init__(self)
+        self.logger = Logger.getLogger()
         self.url = url
         pattern = re.compile(r"://(.*?)/")
         matched = pattern.findall(url)
@@ -42,7 +44,7 @@ class CWebBrowser(threading.Thread):
         pass
 
     def add_cookie(self, name, value):
-        print "Cookie Add TO ", self.domain, " ", name, " ", value
+        self.logger.debug("Cookie Add TO " + self.domain + " " + name + " " + value)
         self.webview.add_cookie(name, value, self.domain)
         pass
 
@@ -50,7 +52,7 @@ class CWebBrowser(threading.Thread):
         self.webview.connect("load-finished", self.load_finished)
         self.webview.connect("load-error", self.load_error)
         self.webview.open(self.url)
-        print self.url, " Now Loading "
+        self.logger.debug(self.url + " Now Loading ")
 
     def getResponse(self):
         response = Response()
@@ -61,13 +63,12 @@ class CWebBrowser(threading.Thread):
 
 
     def load_error(self, view, frame, uri, userdata):
-        print "Load Error ", uri
+        self.logger.error("Load Error " + uri)
         self.loaded = True
         #Gtk.main_quit()();
 
-
     def load_finished(self, view, frame):
-        print "Done"
+        self.logger.debug(self.url + " Load Finished ")
         self.innerHead = self.webview.get_dom_document().get_head().get_inner_html().encode("utf-8")
         self.innerBody = self.webview.get_dom_document().get_body().get_inner_html().encode("utf-8")
         self.loaded = True

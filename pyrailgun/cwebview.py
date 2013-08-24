@@ -14,7 +14,6 @@ from gi.repository import Soup
 
 import sys
 
-
 class CWebView(WebKit.WebView):
     def __init__(self):
         WebKit.WebView.__init__(self);

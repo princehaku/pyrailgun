@@ -104,9 +104,9 @@ class RailGun:
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
         from gi.repository import Gtk
         from gi.repository import Gdk
+        from cwebbrowser import CWebBrowser
 
         Gdk.threads_init()
-        from cwebbrowser.CWebBrowser import CWebBrowser
 
         task_entry['datas'] = []
 

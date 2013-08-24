@@ -13,13 +13,8 @@ from gi.repository import WebKit
 from gi.repository import Soup
 
 import threading, re
-import CWebView
-from ..__logging import Logger
-
-
-class Response:
-    status_code = 500
-    text = None
+from cwebview import CWebView
+from __logging import Logger
 
 
 class CWebBrowser(threading.Thread):
@@ -37,7 +32,7 @@ class CWebBrowser(threading.Thread):
 
         domain = matched[0].split(":")
         self.domain = domain[0]
-        self.webview = CWebView.CWebView()
+        self.webview = CWebView()
 
     # not implements
     def set_timeout(self, timeout):
@@ -55,6 +50,9 @@ class CWebBrowser(threading.Thread):
         self.logger.debug(self.url + " Now Loading ")
 
     def getResponse(self):
+        class Response:
+            status_code = 500
+            text = None
         response = Response()
         if (self.innerBody != None):
             response.status_code = 200

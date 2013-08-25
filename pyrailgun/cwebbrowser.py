@@ -65,6 +65,7 @@ ERROR, WARNING, INFO, DEBUG = range(4)
 argv = ['dummy']
 _marker = []
 
+import cwebbrowser
 
 class CWebBrowser(object):
     """
@@ -75,16 +76,15 @@ class CWebBrowser(object):
     logger = Logger.getLogger()
 
     def __init__(self,
-                 qappargs=None,
                  debug_level=ERROR,
                  want_compat=False,
-                 additional_js_files=None,
                  download_directory=".",
-                 user_agent=None,
+                 user_agent="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0",
                  debug_stream=sys.stderr,
                  event_looptime=0.01,
                  ignore_ssl_errors=True,
                  headers=None,
+                 domwait=0,
                  ssl_protocol=None,
                  ssl_ciphers=None,
                  inspector=False,
@@ -133,8 +133,9 @@ class CWebBrowser(object):
             ):
                 ciphers.append(cip)
         self.sslconf.setCiphers(ciphers)
-        SpynnerQapplication = QApplication(argv)
-        self.application = SpynnerQapplication
+        if not cwebbrowser.SpynnerQapplication:
+            cwebbrowser.SpynnerQapplication = QApplication(cwebbrowser.argv)
+        self.application = cwebbrowser.SpynnerQapplication
         self.want_compat = want_compat
         self.debug_stream = debug_stream
         self.user_agent = user_agent
@@ -149,20 +150,16 @@ class CWebBrowser(object):
             self.headers = []
         if self.user_agent:
             self.headers.append(('User-Agent', self.user_agent))
-        self.additional_js_files = additional_js_files
-        self.additional_js = ""
         self.event_looptime = event_looptime
         self.ignore_ssl_errors = ignore_ssl_errors
         """PyQt4.QtWebKit.QWebPage object."""
         wp = self.webpage = QWebPage()
         # Network Access Manager and cookies
         #mngr = self.manager = QNetworkAccessManager()
-        mngr = self.manager = NManager.new(self)
+        mngr = NManager.new(self)
+        self.manager = mngr
         """PyQt4.QtNetwork.QTNetworkAccessManager object."""
         self.webpage.setNetworkAccessManager(self.manager)
-        if not self.additional_js_files:
-            self.additional_js_files = []
-            self.jslib = 'spynnerjq'
         self.debug_level = debug_level
         """PyQt4.QtWebKit.QWebFrame main webframe object."""
         self.webview = None
@@ -185,7 +182,7 @@ class CWebBrowser(object):
         for i in self._operation_names.keys():
             if isinstance(i, basestring):
                 del self._operation_names[i]
-            # Webpage slots
+                # Webpage slots
         self._load_status = None
         self._replies = 0
         wp.setForwardUnsupportedContent(True)
@@ -193,6 +190,7 @@ class CWebBrowser(object):
             self._on_unsupported_content)
         wp.loadFinished.connect(self._on_load_finished)
         wp.loadStarted.connect(self._on_load_started)
+        self.domwait = domwait
         if inspector:
             self.inspector = QWebInspector()
             self.inspector.setPage(self.webpage)
@@ -318,10 +316,12 @@ class CWebBrowser(object):
     def _on_load_finished(self, successful):
         if hasattr(self, "webpage"):
             self.setframe_obj()
-        self._load_status = successful
         status = {True: "successful", False: "error"}[successful]
         self._debug(INFO, "Page load finished (%d bytes): %s (%s)" %
                           (len(self.html), self.url, status))
+        if self.domwait > 0:
+            self.wait_a_little(self.domwait)
+        self._load_status = successful
 
     def _get_filepath_for_url(self, url, reply=None):
         urlinfo = urlparse.urlsplit(url)
@@ -414,12 +414,6 @@ class CWebBrowser(object):
     def jslen(self, selector):
         res = self.runjs("%s('%s')" % (self.jslib, selector))
         return self.get_js_obj_length(res)
-
-    def _runjs_on_jquery(self, name, code):
-        res = self.runjs(code)
-        if not isinstance(self.get_js_obj_length(res), int):
-            raise SpynnerJavascriptError("error on %s: %s" % (name, code))
-        return res
 
     def _get_html(self):
         return unicode(self.webframe.toHtml())
@@ -927,12 +921,6 @@ class CWebBrowser(object):
 
     def close(self):
         """Close Browser instance and release resources."""
-        if self.manager:
-            del self.manager
-        if self.webpage:
-            del self.webpage
-        if self.webview:
-            self.destroy_webview()
         self.application.exit()
 
     def search_element_text(self, search_text, element='a', case_sensitive=False, match_exactly=True):
@@ -1011,6 +999,10 @@ class CWebBrowser(object):
             self._webframe = frame
         except:
             raise SpynnerError("childframe does not exist")
+        self.load_js()
+
+    def load_js(self):
+        self.runjs("var spynner_js_simulate_loaded = 1 ;", debug=False)
 
     def adapt_size(self, frame=None):
         if not frame:
@@ -1250,7 +1242,7 @@ class CWebBrowser(object):
         return self.cookiesjar.mozillaCookies()
 
     def add_cookie(self, domain, name, value):
-        """Set cookies from a string with Mozilla-format cookies."""
+        self.logger.debug("set cookie " + domain + " " + name + " " + value)
         return self.cookiesjar.add_cookie(domain, name, value)
 
     def set_cookies(self, string_cookies):
@@ -1654,6 +1646,22 @@ class NManager(QNetworkAccessManager):
 
 
 if __name__ == "__main__":
+    browser = CWebBrowser()
+    # 设置代理
+    #browser.set_proxy('http://host:port')
+    #browser.show()
+    try:
+        browser.load(url='http://www.baidu.com', load_timeout=120, tries=1)
+    except SpynnerTimeout:
+        print 'Timeout.'
+    else:
+        # 获取页面的HTML
+        html = browser.html
+        if html:
+            html = html.encode('utf-8')
+            print html
+    browser.close()
+
     browser = CWebBrowser()
     # 设置代理
     #browser.set_proxy('http://host:port')

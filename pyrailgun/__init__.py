@@ -4,7 +4,7 @@
 #    Time: 上午1:01
 #
 __author__ = 'haku'
-import re
+import re, time
 import requests
 import yaml, json
 from bs4 import BeautifulSoup
@@ -105,18 +105,20 @@ class RailGun:
 
         import cwebbrowser
 
-
         task_entry['datas'] = []
 
         urls = p.convertPattern('url')
         timeout = task_entry.get('timeout', 120)
+        domwait = task_entry.get('domwait', 0)
+
         for url in urls:
             self.logger.info("fetching " + url)
             data = ""
             if not url:
                 # do not fetch null url
                 continue
-            browser = cwebbrowser.CWebBrowser()
+            browser = cwebbrowser.CWebBrowser(domwait=domwait)
+            #browser.show();
             if task_entry.get('cookie'):
 
                 pattern = re.compile(r"://(.*?)/")
@@ -131,13 +133,12 @@ class RailGun:
                 for str_param in cookie_str_arr:
                     cookie_params = str_param.split("=")
                     browser.add_cookie(domain, cookie_params[0].strip(), cookie_params[1].strip())
-            # block
+                # block
             try:
                 browser.load(url=url, load_timeout=timeout, tries=1)
             except cwebbrowser.SpynnerTimeout:
                 self.logger.error("fetch " + url + " timeout ")
             else:
-                # 获取页面的HTML
                 html = browser.html
                 if html:
                     html = html.encode('utf-8')
@@ -145,6 +146,8 @@ class RailGun:
                 else:
                     self.logger.error("fetch " + url + " failed with no response")
             task_entry['datas'].append(data)
+
+            browser.close()
         return task_entry
 
     def __fetch_requests(self, task_entry):

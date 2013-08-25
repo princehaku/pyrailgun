@@ -11,7 +11,7 @@ only need a json file to descrip your crawler
 
 optional module: webkit
 
-if you have gi.Webkit installed, you can specific to use webkit to crawler html after javascript rendered
+if you have PyQt4 And QtWebkit installed, you can specific to use webkit to crawler html after javascript rendered
 
 see https://github.com/princehaku/pyrailgun/tree/master/demo for some demos
 

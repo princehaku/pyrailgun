@@ -102,37 +102,48 @@ class RailGun:
     # using webkit to fetch url
     def __fetch_webkit(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
-        from gi.repository import Gtk
-        from gi.repository import Gdk
-        from cwebbrowser import CWebBrowser
 
-        Gdk.threads_init()
+        import cwebbrowser
+
 
         task_entry['datas'] = []
 
         urls = p.convertPattern('url')
+        timeout = task_entry.get('timeout', 120)
         for url in urls:
             self.logger.info("fetching " + url)
             data = ""
             if not url:
                 # do not fetch null url
                 continue
-            web = CWebBrowser(url);
+            browser = cwebbrowser.CWebBrowser()
             if task_entry.get('cookie'):
+
+                pattern = re.compile(r"://(.*?)/")
+                matched = pattern.findall(url)
+                assert matched, url + " Contains No Validated Domain"
+
+                domain = matched[0].split(":")
+                domain = domain[0]
+
                 cookie_str = p.convertPattern('cookie')
                 cookie_str_arr = cookie_str[0].split(";")
                 for str_param in cookie_str_arr:
                     cookie_params = str_param.split("=")
-                    web.add_cookie(cookie_params[0].strip(), cookie_params[1].strip())
-            web.start();
-            Gtk.main()
-
-            response = web.getResponse();
-
-            if 200 != response.status_code:
-                self.logger.error("fetch " + url + " failed with code " + (str)(response.status_code))
+                    browser.add_cookie(domain, cookie_params[0].strip(), cookie_params[1].strip())
+            # block
+            try:
+                browser.load(url=url, load_timeout=timeout, tries=1)
+            except cwebbrowser.SpynnerTimeout:
+                self.logger.error("fetch " + url + " timeout ")
             else:
-                data = response.text
+                # 获取页面的HTML
+                html = browser.html
+                if html:
+                    html = html.encode('utf-8')
+                    data = html
+                else:
+                    self.logger.error("fetch " + url + " failed with no response")
             task_entry['datas'].append(data)
         return task_entry
 

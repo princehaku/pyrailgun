@@ -35,12 +35,15 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 REQUIRS = [
-    'pyyaml (>=3.10)',
-    'beautifulsoup4 (>=4.2.0)',
-    'requests (>=1.2.3)'
+    'pyyaml >=3.10',
+    'beautifulsoup4 >=4.2.0',
+    'requests >=1.2.3'
     ]
 
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 if __name__ == '__main__':
 
@@ -61,6 +64,6 @@ if __name__ == '__main__':
         package_data = {
             'pyrailgun':['*.conf']
         },
-        requires=REQUIRS,
+        install_requires=REQUIRS
     )
 

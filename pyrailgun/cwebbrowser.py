@@ -32,30 +32,16 @@ import os
 from __logging import Logger
 from StringIO import StringIO
 
-try:
-    from PySide import QtCore
-
-    QtCore.QString = str
-    from PySide.QtCore import SIGNAL, QUrl, QString, Qt, QEvent
-    from PySide.QtCore import QSize, QDateTime, QPoint
-    from PySide.QtGui import QApplication, QImage, QPainter
-    from PySide.QtGui import QCursor, QMouseEvent, QKeyEvent
-    from PySide.QtNetwork import QNetworkCookie, QNetworkAccessManager, QSslConfiguration, QSslCipher
-    from PySide.QtNetwork import QNetworkCookieJar, QNetworkRequest, QNetworkProxy, QSsl, QSslSocket
-    from PySide.QtWebKit import QWebPage, QWebView
-
-    HAS_PYSIDE = True
-except Exception, e:
-    HAS_PYSIDE = False
-    from PyQt4 import QtCore
-    from PyQt4.QtCore import SIGNAL, QUrl, QString, Qt, QEvent
-    from PyQt4.QtCore import QSize, QDateTime, QPoint
-    from PyQt4.QtGui import QApplication, QImage, QPainter
-    from PyQt4.QtGui import QCursor, QMouseEvent, QKeyEvent
-    from PyQt4.QtNetwork import QNetworkCookie, QNetworkAccessManager, QSslConfiguration, QSslCipher
-    from PyQt4.QtNetwork import QNetworkCookieJar, QNetworkRequest, QNetworkProxy, QSsl, QSslSocket
-    from PyQt4.QtWebKit import QWebPage, QWebView
-    from PyQt4.QtWebKit import QWebInspector
+HAS_PYSIDE = False
+from PyQt4 import QtCore
+from PyQt4.QtCore import SIGNAL, QUrl, QString, Qt, QEvent
+from PyQt4.QtCore import QSize, QDateTime, QPoint
+from PyQt4.QtGui import QApplication, QImage, QPainter
+from PyQt4.QtGui import QCursor, QMouseEvent, QKeyEvent
+from PyQt4.QtNetwork import QNetworkCookie, QNetworkAccessManager, QSslConfiguration, QSslCipher
+from PyQt4.QtNetwork import QNetworkCookieJar, QNetworkRequest, QNetworkProxy, QSsl, QSslSocket
+from PyQt4.QtWebKit import QWebPage, QWebView
+from PyQt4.QtWebKit import QWebInspector
 
 SpynnerQapplication = None
 
@@ -66,6 +52,7 @@ argv = ['dummy']
 _marker = []
 
 import cwebbrowser
+
 
 class CWebBrowser(object):
     """
@@ -84,7 +71,7 @@ class CWebBrowser(object):
                  event_looptime=0.01,
                  ignore_ssl_errors=True,
                  headers=None,
-                 domwait=0,
+                 delay=0,
                  ssl_protocol=None,
                  ssl_ciphers=None,
                  inspector=False,
@@ -190,7 +177,7 @@ class CWebBrowser(object):
             self._on_unsupported_content)
         wp.loadFinished.connect(self._on_load_finished)
         wp.loadStarted.connect(self._on_load_started)
-        self.domwait = domwait
+        self.delay = delay
         if inspector:
             self.inspector = QWebInspector()
             self.inspector.setPage(self.webpage)
@@ -319,8 +306,8 @@ class CWebBrowser(object):
         status = {True: "successful", False: "error"}[successful]
         self._debug(INFO, "Page load finished (%d bytes): %s (%s)" %
                           (len(self.html), self.url, status))
-        if self.domwait > 0:
-            self.wait_a_little(self.domwait)
+        if self.delay > 0:
+            self.wait_a_little(self.delay)
         self._load_status = successful
 
     def _get_filepath_for_url(self, url, reply=None):
@@ -1187,9 +1174,7 @@ class CWebBrowser(object):
                 # try another time
                 res = self.webframe.evaluateJavaScript(jscode)
         except:
-            # pyside
-            if not HAS_PYSIDE:
-                raise
+            raise
         return res
 
     def set_javascript_confirm_callback(self, callback):
@@ -1402,9 +1387,6 @@ def _debug(obj, linefeed=True, outfd=sys.stderr, outputencoding="utf8"):
 
 
 def toString(s):
-    if HAS_PYSIDE:
-        if isinstance(s, basestring):
-            return s
     if isinstance(s, QString):
         return u"%s" % s
     return s.toString()

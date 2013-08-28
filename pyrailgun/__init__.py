@@ -109,7 +109,7 @@ class RailGun:
 
         urls = p.convertPattern('url')
         timeout = task_entry.get('timeout', 120)
-        domwait = task_entry.get('domwait', 0)
+        delay = task_entry.get('delay', 0)
 
         for url in urls:
             self.logger.info("fetching " + url)
@@ -117,7 +117,7 @@ class RailGun:
             if not url:
                 # do not fetch null url
                 continue
-            browser = cwebbrowser.CWebBrowser(domwait=domwait)
+            browser = cwebbrowser.CWebBrowser(delay=delay)
             #browser.show();
             if task_entry.get('cookie'):
 

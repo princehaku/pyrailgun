@@ -29,7 +29,7 @@ import time
 import sys
 import re
 import os
-from __logging import Logger
+
 from StringIO import StringIO
 
 HAS_PYSIDE = False
@@ -60,7 +60,7 @@ class CWebBrowser(object):
     """
     errorCode = None
     errorMessage = None
-    logger = Logger.getLogger()
+    logger = None
 
     def __init__(self,
                  debug_level=ERROR,
@@ -307,8 +307,16 @@ class CWebBrowser(object):
         self._debug(INFO, "Page load finished (%d bytes): %s (%s)" %
                           (len(self.html), self.url, status))
         if self.delay > 0:
-            self.wait_a_little(self.delay)
+            self.delay_second(self.delay)
         self._load_status = successful
+
+    def delay_second(self, timeout):
+        itime = time.time()
+        while self._load_status is None:
+            if timeout and time.time() - itime > timeout:
+                self._debug(DEBUG, "Timeout reached: %d seconds" % timeout)
+                return
+            self._events_loop()
 
     def _get_filepath_for_url(self, url, reply=None):
         urlinfo = urlparse.urlsplit(url)
@@ -405,11 +413,6 @@ class CWebBrowser(object):
     def _get_html(self):
         return unicode(self.webframe.toHtml())
 
-    def _get_soup(self):
-        if not self._html_parser:
-            raise SpynnerError("Cannot get soup with no HTML parser defined")
-        return self._html_parser(self.html)
-
     def _get_url(self):
         return unicode(toString(self.webframe.url()))
 
@@ -420,9 +423,6 @@ class CWebBrowser(object):
     """Rendered HTML in current page."""
     html = property(_get_html)
     """Rendered HTML in current page."""
-
-    soup = property(_get_soup)
-    """HTML soup (see L{set_html_parser})."""
 
     def load(self,
              url,
@@ -907,8 +907,10 @@ class CWebBrowser(object):
             self._events_loop()
 
     def close(self):
+        if self.webview:
+            self.destroy_webview()
         """Close Browser instance and release resources."""
-        self.application.exit()
+        del self.application
 
     def search_element_text(self, search_text, element='a', case_sensitive=False, match_exactly=True):
         """
@@ -1004,12 +1006,6 @@ class CWebBrowser(object):
         f = cf[int(framenumber)]
         self.setframe_obj(f)
 
-    def fill(self, selector, value):
-        """Fill an input text with a string value using a jQuery selector."""
-        escaped_value = value.replace("'", "\\'")
-        jscode = "%s('%s').val('%s')" % (self.jslib, selector, escaped_value)
-        self._runjs_on_jquery("fill", jscode)
-
     def wk_fill(self, selector, value):
         """Fill an input text with a string value using a WebKit selector and using the webkit webframe object."""
         element = self.webframe.findFirstElement(selector)
@@ -1050,53 +1046,6 @@ class CWebBrowser(object):
             es = self.webframe.findAllElements(s).toList()
             elems.extend(es)
         return self.wk_uncheck_elem(elems)
-
-    def check(self, selector):
-        """Check an input checkbox using a jQuery selector."""
-        if not isinstance(selector, list):
-            selector = [selector]
-        for s in selector:
-            jscode = "%s('%s').attr('checked', true)" % (self.jslib, s)
-            self._runjs_on_jquery("check", jscode)
-
-    def uncheck(self, selector):
-        """Uncheck input checkbox using a jQuery selector"""
-        if not isinstance(selector, list):
-            selector = [selector]
-        for s in selector:
-            jscode = "%s('%s').attr('checked', false)" % (self.jslib, s)
-            self._runjs_on_jquery("uncheck", jscode)
-
-    def radio(self, selector):
-        """Choose a radio button a jQuery selector.
-        Selector can be a single selector of a list of selectors
-        """
-        if not isinstance(selector, list):
-            selector = [selector]
-        jscode = ''
-        for s in selector:
-            jscode += "%s('%s').attr('checked', 'checked');\n" % (
-                self.jslib, s)
-        self._runjs_on_jquery("radio", jscode)
-
-    def select(self, selector, remove=True):
-        """Choose a option in a select using a jQuery selector.
-        Selector can be a single selector of a list of selectors
-        """
-        if not isinstance(selector, list):
-            selector = [selector]
-        rjscode = ''
-        jscode = ''
-        for s in selector:
-            if remove:
-                rjscode += ("%s('option:selected', "
-                            "%s('%s').parents('select')[0])"
-                            ".removeAttr('selected');\n" ) % (
-                               self.jslib, self.jslib, s)
-            jscode += "%s('%s').attr('selected', 'selected');\n" % (
-                self.jslib, s)
-        jscode = rjscode + jscode
-        self._runjs_on_jquery("select", jscode)
 
     def wk_radio(self, selector):
         """Choose a option in a select using  WebKit API.

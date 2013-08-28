@@ -11,7 +11,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 railgun = RailGun()
-railgun.setTask(file("demowebkit.json"));
+railgun.setTask(file("webkit.json"));
 railgun.fire();
 nodes = railgun.getShells()
 file = file("demo_webkit.txt", "w+")

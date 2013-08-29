@@ -210,7 +210,7 @@ class RailGun:
             for tag in parsed_data_sps:
                 tag = unicode(tag)
                 if (None != attr):
-                    attr_data = BeautifulSoup(tag)
+                    attr_data = BeautifulSoup(tag.encode("utf8"))
                     tag = attr_data.contents[0].get(attr)
                 if strip == 'true':
                     dr = re.compile(r'<!--.*-->')

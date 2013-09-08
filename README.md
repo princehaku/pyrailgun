@@ -1,86 +1,35 @@
-﻿How To Use?
+功能
 
-testsite.yaml
+* 支持从[json](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)，[yaml](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.yaml)文件读取抓取任务
 
-```
-action: main
-name: "vc动漫"
-subaction:
-- action: fetcher
-  url: http://www.verycd.com/base/cartoon/page${1,1}${0,9}
-  subaction:
-  - action: parser
-    rule: .entry_cover_list li
-    subaction:
-    - action: shell
-      group: default
-      subaction:
-        - {action: parser, rule: '.entry_cover .cover_img', setField: img}
-        - {action: parser, rule: 'a', pos: 0, attr: href, setField: src}
-        - {action: parser, strip: 'true', rule: '.entry_cover .score', setField: score}
-        - {action: parser, rule: '.bio a', setField: dest}
-        - action: fetcher
-          url: http://www.verycd.com${#src}
-          subaction:
-          - {action: parser,strip: 'true', rule: '#contents_more', setField: description}
-```
+* 支持python源生dist定义抓取任务
 
-then in your script
+* [支持通配符](https://github.com/princehaku/pyrailgun/wiki/通配符支持)和[过程参数传递](https://github.com/princehaku/pyrailgun/wiki/过程参数传递)
 
-```
-from railgun import RailGun
+* css选择器的dom节点抓取
 
-railgun = RailGun()
-railgun.setTask(file("testsite.yaml"));
-railgun.fire();
-nodes = railgun.getShells('default')
-print nodes
-```
-
-then you can get all the nodes in a list
-[{img:xxx,src:xxx,score:xxx,dest:xxx,description:xxx},{img:xxx,src:xxx,score:xxx,dest:xxx,description:xxx}]
-
-怎么使用?
-首先你需要创建一个对应站点的规则文件
-比如testsite.yaml
-
-```
-action: main
-name: "vc动漫"
-subaction:
-- action: fetcher
-  url: http://www.verycd.com/base/cartoon/page${1,1}${0,9}
-  subaction:
-  - action: parser
-    rule: .entry_cover_list li
-    subaction:
-    - action: shell
-      group: default
-      subaction:
-        - {action: parser, rule: '.entry_cover .cover_img', setField: img}
-        - {action: parser, rule: 'a', pos: 0, attr: href, setField: src}
-        - {action: parser, strip: 'true', rule: '.entry_cover .score', setField: score}
-        - {action: parser, rule: '.bio a', setField: dest}
-        - action: fetcher
-          url: http://www.verycd.com${#src}
-          subaction:
-          - {action: parser,strip: 'true', rule: '#contents_more', setField: description}
-```
-
-然后在代码里面把它作为一个任务加入到railgun
-
-```
-from railgun import RailGun
-
-railgun = RailGun()
-railgun.setTask(file("testsite.yaml"));
-railgun.fire();
-nodes = railgun.getShells('default')
-print nodes
-```
-
-然后你就可以得到一个包含了所有解析后数据的节点列表
-[{img:xxx,src:xxx,score:xxx,dest:xxx,description:xxx},{img:xxx,src:xxx,score:xxx,dest:xxx,description:xxx}]
+* [使用webkit内核抓取网页](https://github.com/princehaku/pyrailgun/wiki/使用webkit内核抓取网页)
 
 
-Version 0.14 支持json格式了!
+安装
+
+* [从pip安装] (https://pypi.python.org/pypi/pyrailgun) `pip install pyrailgun`
+
+* 源码安装 `python setup.py install`
+
+
+语法
+
+例子
+
+* [快速入门] (https://github.com/princehaku/pyrailgun/wiki/简单使用说明)
+
+* [复杂点的例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/basic.yaml)
+
+* [预定义变量] (https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)
+
+* [WebKit抓取] (https://github.com/princehaku/pyrailgun/blob/master/demo/webkit.json)
+
+FAQ
+
+* [在没有X的服务器上运行webkit内核抓取](https://github.com/princehaku/pyrailgun/wiki/在没有X的服务器上运行webkit内核抓取)

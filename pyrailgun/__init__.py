@@ -103,7 +103,7 @@ class RailGun:
     def __fetch_webkit(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
 
-        import cwebbrowser
+        import _cwebbrowser
 
         task_entry['datas'] = []
 
@@ -117,7 +117,7 @@ class RailGun:
             if not url:
                 # do not fetch null url
                 continue
-            browser = cwebbrowser.CWebBrowser(delay=delay)
+            browser = _cwebbrowser.CWebBrowser(delay=delay)
             #browser.show();
             if task_entry.get('cookie'):
 
@@ -136,7 +136,7 @@ class RailGun:
                 # block
             try:
                 browser.load(url=url, load_timeout=timeout, tries=1)
-            except cwebbrowser.SpynnerTimeout:
+            except _cwebbrowser.SpynnerTimeout:
                 self.logger.error("fetch " + url + " timeout ")
             else:
                 html = browser.html

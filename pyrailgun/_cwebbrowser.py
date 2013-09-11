@@ -33,25 +33,25 @@ import os
 from StringIO import StringIO
 
 HAS_PYSIDE = False
-from PyQt4 import QtCore
+
 from PyQt4.QtCore import SIGNAL, QUrl, QString, Qt, QEvent
 from PyQt4.QtCore import QSize, QDateTime, QPoint
 from PyQt4.QtGui import QApplication, QImage, QPainter
-from PyQt4.QtGui import QCursor, QMouseEvent, QKeyEvent
-from PyQt4.QtNetwork import QNetworkCookie, QNetworkAccessManager, QSslConfiguration, QSslCipher
-from PyQt4.QtNetwork import QNetworkCookieJar, QNetworkRequest, QNetworkProxy, QSsl, QSslSocket
+from PyQt4.QtGui import QCursor, QKeyEvent
+from PyQt4.QtNetwork import QNetworkCookie, QNetworkAccessManager, QSslConfiguration
+from PyQt4.QtNetwork import QNetworkCookieJar, QNetworkRequest, QNetworkProxy
 from PyQt4.QtWebKit import QWebPage, QWebView
 from PyQt4.QtWebKit import QWebInspector
 
 SpynnerQapplication = None
 
 
+import _cwebbrowser
+
 # Debug levels
 ERROR, WARNING, INFO, DEBUG = range(4)
 argv = ['dummy']
 _marker = []
-
-import cwebbrowser
 
 
 class CWebBrowser(object):
@@ -120,9 +120,9 @@ class CWebBrowser(object):
             ):
                 ciphers.append(cip)
         self.sslconf.setCiphers(ciphers)
-        if not cwebbrowser.SpynnerQapplication:
-            cwebbrowser.SpynnerQapplication = QApplication(cwebbrowser.argv)
-        self.application = cwebbrowser.SpynnerQapplication
+        if not _cwebbrowser.SpynnerQapplication:
+            _cwebbrowser.SpynnerQapplication = QApplication(_cwebbrowser.argv)
+        self.application = _cwebbrowser.SpynnerQapplication
         self.want_compat = want_compat
         self.debug_stream = debug_stream
         self.user_agent = user_agent
@@ -1176,7 +1176,7 @@ class CWebBrowser(object):
         return self.cookiesjar.mozillaCookies()
 
     def add_cookie(self, domain, name, value):
-        self.logger.debug("set cookie " + domain + " " + name + " " + value)
+        self._debug(INFO, "set cookie " + domain + " " + name + " " + value)
         return self.cookiesjar.add_cookie(domain, name, value)
 
     def set_cookies(self, string_cookies):

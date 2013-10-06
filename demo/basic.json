@@ -5,6 +5,9 @@
         {
             "action": "fetcher",
             "url": "http://www.verycd.com/base/cartoon/page${0,1}${0,1}",
+            "headers" : {
+                "Cookie" : "abc=123"
+            },
             "subaction": [
                 {
                     "action": "parser",

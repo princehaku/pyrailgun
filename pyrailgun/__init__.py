@@ -142,12 +142,7 @@ class RailGun:
         timeout = task_entry.get('timeout', 120)
         urls = p.convertPattern('url')
         s = requests.session()
-        if task_entry.get('cookie'):
-            cookie_str = p.convertPattern('cookie')
-            cookie_str_arr = cookie_str[0].split(";")
-            for str_param in cookie_str_arr:
-                cookie_params = str_param.split("=")
-                s.cookies.set(cookie_params[0].strip(), cookie_params[1].strip())
+        headers = task_entry.get('headers', [])
         task_entry['datas'] = []
         for url in urls:
             self.logger.info("fetching " + url)
@@ -156,7 +151,7 @@ class RailGun:
                 # do not fetch null url
                 continue
             try:
-                response = s.get(url, timeout=timeout)
+                response = s.get(url, timeout=timeout, headers=headers)
                 if 200 != response.status_code:
                     self.logger.error("fetch " + url + " failed with code " + (str)(response.status_code))
                 data = response.text

@@ -4,13 +4,13 @@
 #    Time: 下午1:49
 #
 
+from __logging import Logger
+import time
 from PyQt4.QtCore import QUrl, Qt
 from PyQt4.QtGui import QApplication
 from PyQt4.QtNetwork import QNetworkAccessManager
 from PyQt4.QtNetwork import QNetworkRequest
 from PyQt4.QtWebKit import QWebPage, QWebView
-
-import time
 
 app = QApplication(['dummy'])
 
@@ -28,6 +28,7 @@ class CWebBrowser():
     def __init__(self):
 
         self.application = app
+        self.logger = Logger.getLogger()
 
         wp = QWebPage()
         wp.setForwardUnsupportedContent(True)
@@ -41,11 +42,11 @@ class CWebBrowser():
     def _on_load_started(self):
         self._load_success = False
         self._load_last = 0
-        print "Page load started"
+        self.logger.debug("Page load started")
 
     def _on_load_finished(self):
         self._load_success = True
-        print "Page load Finished"
+        self.logger.debug("Page load Finished")
 
     def make_request(self, url):
         url = QUrl(url)

@@ -1,12 +1,14 @@
 功能
 
-* 支持从[json](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)，[yaml](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.yaml)文件读取抓取任务
+* 支持从[json](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)文件读取抓取任务
 
 * 支持python源生dist定义抓取任务
 
 * [支持通配符](https://github.com/princehaku/pyrailgun/wiki/通配符支持)和[过程参数传递](https://github.com/princehaku/pyrailgun/wiki/过程参数传递)
 
 * css选择器的dom节点抓取
+
+* [支持自定UA等header头](https://github.com/princehaku/pyrailgun/wiki/设置请求头【Cookie和UA等】)
 
 * [使用webkit内核抓取网页](https://github.com/princehaku/pyrailgun/wiki/使用webkit内核抓取网页)
 
@@ -24,7 +26,7 @@
 
 * [快速入门] (https://github.com/princehaku/pyrailgun/wiki/简单使用说明)
 
-* [复杂点的例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/basic.yaml)
+* [复杂点的例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/basic.json)
 
 * [预定义变量] (https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)
 

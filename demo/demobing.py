@@ -11,7 +11,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 railgun = RailGun()
-railgun.setTask(file("bing.yaml"));
+railgun.setTask(file("bing.json"));
 query = raw_input("Please Input Query\r\n")
 railgun.setGlobalData("q", urllib.quote(query))
 railgun.fire();

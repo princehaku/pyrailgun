@@ -5,10 +5,13 @@
         {
             "action": "fetcher",
             "url": "http://s.weibo.com/weibo/淘宝搜索&xsort=time&page=${1,2}",
-            "cookie": "UOR=vip.xunlei.com,widget.weibo.com,www.baidu.com; SINAGLOBAL=6845762193311.736.1375458040027; ULV=1377394647261:53:53:1:6147212940517.903.1377394647257:1377325414806; ALF=1379986645; SinaRot_wb_r_topic=48; wvr=5; USRUG=usrmdins41447; SUS=SID-1763365093-1377394645-XD-sqw6j-6dd4e2a3c8bdff0894e114e87b089bfb; SUE=es%3D58ae20012d41dde776fc1f7d8f1a1017%26ev%3Dv1%26es2%3Da8493d8d84d40dedf1fae9987418c114%26rs0%3DU5xUewOcQY6evWWYGaqkewdU%252BWxF%252B3Qp2r51Es7ywfqKKjKOwgHskRZA1hfO9Pkmp43HNKxVx%252BvUFLdFtuDXkShDuFHdHKVqAoM5029BKorfIiDK6AHwu5u64CHMVXwJdPagkyWJBZBYSp2DPQ0XO9hd61TRstJ92J0Sw9X8xEs%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1377394645%26et%3D1377481045%26d%3Dc909%26i%3D790d%26us%3D1%26vf%3D0%26vt%3D0%26ac%3D2%26st%3D0%26uid%3D1763365093%26name%3Dbaizhongwei%2540163.com%26nick%3Dbaizhongwei%26fmp%3D%26lcp%3D2011-12-03%252020%253A13%253A41; SSOLoginState=1377394645; USRHAWB=usrmdins312_240; _s_tentry=login.sina.com.cn; Apache=6147212940517.903.1377394647257",
+            "headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0",
+                "Cookie": "UOR=vip.xunlei.com,widget.weibo.com,www.baidu.com; SINAGLOBAL=6845762193311.736.1375458040027; ULV=1377394647261:53:53:1:6147212940517.903.1377394647257:1377325414806; ALF=1379986645; SinaRot_wb_r_topic=48; wvr=5; USRUG=usrmdins41447; SUS=SID-1763365093-1377394645-XD-sqw6j-6dd4e2a3c8bdff0894e114e87b089bfb; SUE=es%3D58ae20012d41dde776fc1f7d8f1a1017%26ev%3Dv1%26es2%3Da8493d8d84d40dedf1fae9987418c114%26rs0%3DU5xUewOcQY6evWWYGaqkewdU%252BWxF%252B3Qp2r51Es7ywfqKKjKOwgHskRZA1hfO9Pkmp43HNKxVx%252BvUFLdFtuDXkShDuFHdHKVqAoM5029BKorfIiDK6AHwu5u64CHMVXwJdPagkyWJBZBYSp2DPQ0XO9hd61TRstJ92J0Sw9X8xEs%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1377394645%26et%3D1377481045%26d%3Dc909%26i%3D790d%26us%3D1%26vf%3D0%26vt%3D0%26ac%3D2%26st%3D0%26uid%3D1763365093%26name%3Dbaizhongwei%2540163.com%26nick%3Dbaizhongwei%26fmp%3D%26lcp%3D2011-12-03%252020%253A13%253A41; SSOLoginState=1377394645; USRHAWB=usrmdins312_240; _s_tentry=login.sina.com.cn; Apache=6147212940517.903.1377394647257"
+            },
             "timeout": 10,
             "webkit": true,
-            "delay" : 3,
+            "delay": 3,
             "subaction": [
                 {
                     "action": "parser",
@@ -20,7 +23,7 @@
                                 {
                                     "action": "parser",
                                     "setField": "content",
-                                    "position" : 0,
+                                    "position": 0,
                                     "rule": "p"
                                 }
                             ]

@@ -33,3 +33,9 @@
 FAQ
 
 * [在没有X的服务器上运行webkit内核抓取](https://github.com/princehaku/pyrailgun/wiki/在没有X的服务器上运行webkit内核抓取)
+
+
+更新
+
+* 0.24
+  受版权限制，替换webbroser为自己写的版本

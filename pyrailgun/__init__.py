@@ -103,7 +103,7 @@ class RailGun:
     def __fetch_webkit(self, task_entry):
         p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
 
-        import _cwebbrowser
+        import cwebbrowser
 
         task_entry['datas'] = []
 
@@ -117,29 +117,19 @@ class RailGun:
             if not url:
                 # do not fetch null url
                 continue
-            browser = _cwebbrowser.CWebBrowser(delay=delay)
+            browser = cwebbrowser.CWebBrowser()
+            browser.setHeaders(task_entry.get('headers', []))
             #browser.show();
-            if task_entry.get('cookie'):
-
-                pattern = re.compile(r"://(.*?)/")
-                matched = pattern.findall(url)
-                assert matched, url + " Contains No Validated Domain"
-
-                domain = matched[0].split(":")
-                domain = domain[0]
-
-                cookie_str = p.convertPattern('cookie')
-                cookie_str_arr = cookie_str[0].split(";")
-                for str_param in cookie_str_arr:
-                    cookie_params = str_param.split("=")
-                    browser.add_cookie(domain, cookie_params[0].strip(), cookie_params[1].strip())
-                # block
             try:
-                browser.load(url=url, load_timeout=timeout, tries=1)
-            except _cwebbrowser.SpynnerTimeout:
+                browser.load(url=url, load_timeout=timeout, delay=delay)
+            except cwebbrowser.Timeout:
                 self.logger.error("fetch " + url + " timeout ")
+            except  Exception, exception:
+                self.logger.error("fetch " + url + " error ")
+                print "Exception message:", exception
+
             else:
-                html = browser.html
+                html = browser.html()
                 if html:
                     html = html.encode('utf-8')
                     data = html

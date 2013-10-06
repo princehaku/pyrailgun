@@ -6,6 +6,7 @@
 
 from __logging import Logger
 import time
+
 from PyQt4.QtCore import QUrl, Qt
 from PyQt4.QtGui import QApplication
 from PyQt4.QtNetwork import QNetworkAccessManager
@@ -37,16 +38,17 @@ class CWebBrowser():
         self.webpage = wp
         self.webframe = wp.mainFrame()
         self.headers = []
+        self._load_timeout = -1
         self._load_success = False
 
     def _on_load_started(self):
         self._load_success = False
         self._load_last = 0
-        self.logger.debug("Page load started")
+        self.logger.debug("Page Load Started")
 
     def _on_load_finished(self):
         self._load_success = True
-        self.logger.debug("Page load Finished")
+        self.logger.debug("Page Load Finished " + unicode((self.webframe.url().toString())))
 
     def make_request(self, url):
         url = QUrl(url)
@@ -60,35 +62,36 @@ class CWebBrowser():
     def setHeaders(self, headers):
         self.headers = headers
 
-    def load(self, url, headers=None, body=None, load_timeout=10, delay=None):
+    def load(self, url, headers=None, body=None, load_timeout=-1, delay=None):
         if not headers:
-            headers = []
+            self.headers = []
         if not body:
             body = ""
             # ass headers
         req = self.make_request(url)
         self._load_success = False
+        self._load_timeout = load_timeout
 
         self.webframe.load(req, QNetworkAccessManager.GetOperation, body)
         # wait to load finished
-        self._wait_finish(load_timeout)
-
+        self._wait_finish()
+        # delay wait to render html
         if delay:
-            self.wait_delays(delay, load_timeout)
+            self.wait_delays(delay)
 
-    def _wait_finish(self, load_timeout):
+    def _wait_finish(self):
         while not self._load_success:
             self._events_loop()
             self._load_last += 1
-            if self._load_last >= load_timeout * 100:
-                raise Timeout("Timeout reached: %d seconds" % load_timeout)
+            if self._load_timeout > 0 and self._load_last >= self._load_timeout * 100:
+                raise Timeout("Timeout reached: %d seconds" % self._load_timeout)
 
-    def wait_delays(self, seconds, load_timeout):
+    def wait_delays(self, seconds):
 
         for j in range(1, seconds):
             for i in range(1, 100):
                 # wait to load finished
-                self._wait_finish(load_timeout)
+                self._wait_finish()
                 self._events_loop()
 
     def html(self):

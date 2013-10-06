@@ -34,10 +34,9 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 REQUIRS = [
-    'pyyaml >=3.10',
     'beautifulsoup4 >=4.2.0',
     'requests >=1.2.3'
-    ]
+]
 
 try:
     from setuptools import setup
@@ -45,7 +44,6 @@ except ImportError:
     from distutils.core import setup
 
 if __name__ == '__main__':
-
     setup(
         name=NAME,
         version=VERSION,
@@ -59,9 +57,9 @@ if __name__ == '__main__':
         download_url=DOWNLOAD_URL,
         classifiers=CLASSIFIERS,
         packages=['pyrailgun'],
-        include_package_data = True,
-        package_data = {
-            'pyrailgun':['*.conf']
+        include_package_data=True,
+        package_data={
+            'pyrailgun': ['*.conf']
         },
         install_requires=REQUIRS
     )

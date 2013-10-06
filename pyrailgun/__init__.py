@@ -6,7 +6,7 @@
 __author__ = 'haku'
 import re, time
 import requests
-import yaml, json
+import json
 from bs4 import BeautifulSoup
 from __pattern import Pattern
 from __logging import Logger
@@ -27,11 +27,7 @@ class RailGun:
         assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
         if not ext:
             ext = tfile.name.split(".")[-1]
-        task_data = {}
-        if (ext == 'yaml'):
-            task_data = yaml.load(tfile)
-        if (ext == 'json'):
-            task_data = json.load(tfile)
+        task_data = json.load(tfile)
         assert task_data, "Task Data is Empty"
         self.task_data = dict(task_data)
 

@@ -180,6 +180,7 @@ class RailGun:
         attr = task_entry.get('attr')
         parsed_datas = []
         for data in datas:
+            self.logger.debug("parse from raw " + str(data))
             soup = BeautifulSoup(data)
             parsed_data_sps = soup.select(rule)
             # set pos

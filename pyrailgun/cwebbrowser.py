@@ -11,7 +11,7 @@ from PyQt4.QtCore import QUrl, Qt
 from PyQt4.QtGui import QApplication
 from PyQt4.QtNetwork import QNetworkAccessManager
 from PyQt4.QtNetwork import QNetworkRequest
-from PyQt4.QtWebKit import QWebPage, QWebView
+from PyQt4.QtWebKit import QWebPage, QWebView, QWebSettings
 
 app = QApplication(['dummy'])
 
@@ -40,6 +40,13 @@ class CWebBrowser():
         self.headers = []
         self._load_timeout = -1
         self._load_success = False
+        self.setSettings()
+
+    def setSettings(self):
+        page = self.webpage
+        page.settings().setAttribute(QWebSettings.LocalStorageDatabaseEnabled, True)
+        page.settings().setAttribute(QWebSettings.JavascriptCanOpenWindows, True)
+        page.settings().setAttribute(QWebSettings.AutoLoadImages, False)
 
     def _on_load_started(self):
         self._load_success = False

@@ -1,3 +1,5 @@
+NEED Python2.7
+
 功能
 
 * 支持从[json](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)文件读取抓取任务

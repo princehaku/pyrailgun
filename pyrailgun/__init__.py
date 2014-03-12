@@ -144,6 +144,8 @@ class RailGun:
         s = requests.session()
         headers = task_entry.get('headers', [])
         task_entry['datas'] = []
+        if not urls:
+           return task_entry
         for url in urls:
             self.logger.info("fetching " + url)
             data = ""

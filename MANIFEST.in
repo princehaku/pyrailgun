@@ -1,0 +1,2 @@
+include *.conf
+recursive-include pyrailgun *.conf *.py

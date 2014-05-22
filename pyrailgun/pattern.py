@@ -1,11 +1,10 @@
 #    coding: UTF-8
 #    User: haku
 #    Date: 13-2-24
-#    Time: 上午1:01
+#    Time: 1:01
 #
 import re
-from __logging import Logger
-
+from logger import Logger
 
 class Pattern:
     def __init__(self, task_entry=None, shell=None, global_data=None):

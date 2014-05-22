@@ -1,0 +1,38 @@
+{
+    "name": "bing searcher",
+    "action": "main",
+    "subaction": [
+        {
+            "action": "fetcher",
+            "url": "http://www.bing.com/search?q=${@q}",
+            "timeout": 1,
+            "subaction": [
+                {
+                    "action": "parser",
+                    "subaction": [
+                        {
+                            "action": "shell",
+                            "subaction": [
+                                {
+                                    "action": "parser",
+                                    "setField": "title",
+                                    "pos": 0,
+                                    "rule": "a",
+                                    "strip": "true"
+                                },
+                                {
+                                    "action": "parser",
+                                    "setField": "description",
+                                    "pos": 0,
+                                    "rule": "p"
+                                }
+                            ],
+                            "group": "default"
+                        }
+                    ],
+                    "rule": "#results .sa_wr"
+                }
+            ]
+        }
+    ]
+}

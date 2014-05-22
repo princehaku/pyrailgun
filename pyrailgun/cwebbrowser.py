@@ -1,10 +1,10 @@
 #    coding: UTF-8
 #    User: haku
 #    Date: 13-10-6
-#    Time: 下午1:49
+#    Time: 13:49
 #
 
-from __logging import Logger
+from logger import Logger
 import time
 
 from PyQt4.QtCore import QUrl, Qt
@@ -46,6 +46,7 @@ class CWebBrowser():
         page = self.webpage
         page.settings().setAttribute(QWebSettings.LocalStorageDatabaseEnabled, True)
         page.settings().setAttribute(QWebSettings.JavascriptCanOpenWindows, True)
+        # auto disable image download
         page.settings().setAttribute(QWebSettings.AutoLoadImages, False)
 
     def _on_load_started(self):

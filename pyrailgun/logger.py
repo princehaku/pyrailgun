@@ -1,7 +1,7 @@
 #    coding: UTF-8
 #    User: haku
 #    Date: 13-2-27
-#    Time: 下午11:23
+#    Time: 23:23
 #
 import logging.config, os
 

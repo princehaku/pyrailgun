@@ -16,6 +16,8 @@ NEED Python2.7
 
 * [使用webkit内核抓取网页](https://github.com/princehaku/pyrailgun/wiki/使用webkit内核抓取网页)
 
+* 支持所有平台
+
 
 安装
 

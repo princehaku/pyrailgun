@@ -2,7 +2,7 @@ NEED Python2.7
 
 功能
 
-* 支持从[json](https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)文件读取抓取任务
+* 支持从[json](https://github.com/princehaku/pyrailgun/blob/master/demo/tour/basic.json)文件读取抓取任务
 
 * 支持 python字典数据源方式 定义抓取任务
 
@@ -15,8 +15,6 @@ NEED Python2.7
 * [使用requests抓取网页](https://github.com/princehaku/pyrailgun/wiki/使用requests抓取网页)
 
 * [使用webkit内核抓取网页](https://github.com/princehaku/pyrailgun/wiki/使用webkit内核抓取网页)
-
-* 支持所有平台
 
 
 安装
@@ -32,11 +30,11 @@ NEED Python2.7
 
 * [快速入门] (https://github.com/princehaku/pyrailgun/wiki/简单使用说明)
 
-* [全功能简单例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/basic.json)
+* [全功能简单例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/tour/basic.json)
 
-* [读取输入变量] (https://github.com/princehaku/pyrailgun/blob/master/demo/bing.json)
+* [读取输入变量] (https://github.com/princehaku/pyrailgun/blob/master/demo/userinput/bing.json)
 
-* [WebKit抓取] (https://github.com/princehaku/pyrailgun/blob/master/demo/webkit.json)
+* [WebKit抓取] (https://github.com/princehaku/pyrailgun/blob/master/demo/webkit/webkit.json)
 
 * [在没有X的服务器上运行webkit内核抓取](https://github.com/princehaku/pyrailgun/wiki/在没有X的服务器上运行webkit内核抓取)
 
@@ -45,7 +43,6 @@ NEED Python2.7
 * python2.7 是必须的
 
 * [_pages](https://github.com/princehaku/pyrailgun/wiki/_pages)
-
 
 更新
 

@@ -26,6 +26,8 @@ NEED Python2.7
 
 语法
 
+* [json对象说明](https://github.com/princehaku/pyrailgun/wiki/json%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E)
+
 例子
 
 * [快速入门] (https://github.com/princehaku/pyrailgun/wiki/简单使用说明)

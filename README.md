@@ -32,11 +32,11 @@ NEED Python2.7
 
 * [快速入门] (https://github.com/princehaku/pyrailgun/wiki/简单使用说明)
 
-* [全功能简单例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/tour/basic.json)
+* [全功能简单例子] (https://github.com/princehaku/pyrailgun/blob/master/demo/tour/)
 
-* [读取输入变量] (https://github.com/princehaku/pyrailgun/blob/master/demo/userinput/bing.json)
+* [读取输入变量] (https://github.com/princehaku/pyrailgun/blob/master/demo/userinput/)
 
-* [WebKit抓取] (https://github.com/princehaku/pyrailgun/blob/master/demo/webkit/webkit.json)
+* [WebKit抓取] (https://github.com/princehaku/pyrailgun/blob/master/demo/webkit/)
 
 * [在没有X的服务器上运行webkit内核抓取](https://github.com/princehaku/pyrailgun/wiki/在没有X的服务器上运行webkit内核抓取)
 

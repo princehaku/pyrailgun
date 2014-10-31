@@ -30,7 +30,7 @@
                             "group": "default"
                         }
                     ],
-                    "rule": "#results .sa_wr"
+                    "rule": "#b_results li"
                 }
             ]
         }

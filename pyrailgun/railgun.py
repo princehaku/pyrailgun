@@ -1,18 +1,21 @@
-#    coding: UTF-8
-#    User: haku
-#    Date: 14-5-22
+# coding: UTF-8
+# User: haku
+# Date: 14-5-22
 #    Time: 4:01
 #
 
 __author__ = 'haku-mac'
 
+import re
+import json
+import sys
+
+import requests
+from bs4 import BeautifulSoup
 
 from pattern import Pattern
 from logger import Logger
-import re, time
-import requests
-import json
-from bs4 import BeautifulSoup
+
 
 class RailGun:
     def __init__(self):
@@ -39,14 +42,16 @@ class RailGun:
 
     # do work
     def fire(self):
-        self.__parserShells(self.task_data)
-        return self.shell_groups
+        shell_groups = {}
+        self.__parserShells(self.task_data, shell_groups)
+        self.shell_groups = shell_groups
+        return shell_groups
 
     # get parsed shells
     def getShells(self, group_name='default'):
         return self.shell_groups.get(group_name)
 
-    def __parserShells(self, task_entry):
+    def __parserShells(self, task_entry, shell_groups):
         """
 
         :param task_entry:
@@ -65,15 +70,22 @@ class RailGun:
             , 'shell': '__createShell'
             , 'faketask': '__faketask'
             , 'fetcher': '__fetch'
-            , 'parser': '__parser'
+            , 'parser': 'ParserAction'
         }
 
         if actionname in actionMap.keys():
-            worker = getattr(self
-                             , '_RailGun{}'.format(actionMap[actionname])
-            )
-            if callable(worker):
-                task_entry = worker(task_entry)
+            if (actionMap[actionname][0] == "_"):
+                worker = getattr(self
+                                 , '_RailGun{}'.format(actionMap[actionname])
+                )
+                if callable(worker):
+                    task_entry = worker(task_entry, shell_groups)
+            else:
+                from pyrailgun.actions.parseraction import ParserAction
+                module = ParserAction
+                worker = getattr(module
+                                 ,"action")
+                task_entry = worker(module(), task_entry, shell_groups)
 
         if (None == task_entry.get('subaction')):
             return
@@ -90,16 +102,17 @@ class RailGun:
                 subtask['shellgroup'] = task_entry.get('shellgroup')
             if None != task_entry.get('shellid'):
                 subtask['shellid'] = task_entry.get('shellid')
-            self.__parserShells(subtask)
-        return
+            self.__parserShells(subtask, shell_groups)
 
-    def __main(self, task_entry):
+        return shell_groups
+
+    def __main(self, task_entry, shell_groups):
         self.logger.info(task_entry['name'] + " is now running")
         return task_entry
 
     # using webkit to fetch url
-    def __fetch_webkit(self, task_entry):
-        p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
+    def __fetch_webkit(self, task_entry, shell_groups):
+        p = Pattern(task_entry, self.__getCurrentShell(task_entry, shell_groups), self.global_data)
 
         import cwebbrowser
 
@@ -138,8 +151,8 @@ class RailGun:
             browser.close()
         return task_entry
 
-    def __fetch_requests(self, task_entry):
-        p = Pattern(task_entry, self.__getCurrentShell(task_entry), self.global_data)
+    def __fetch_requests(self, task_entry, shell_groups):
+        p = Pattern(task_entry, self.__getCurrentShell(task_entry, shell_groups), self.global_data)
 
         timeout = task_entry.get('timeout', 120)
         urls = p.convertPattern('url')
@@ -165,17 +178,17 @@ class RailGun:
         return task_entry
 
     # fetch something
-    def __fetch(self, task_entry):
+    def __fetch(self, task_entry, shell_groups):
 
         if task_entry.get("webkit", False):
-            return self.__fetch_webkit(task_entry)
-        return self.__fetch_requests(task_entry)
+            return self.__fetch_webkit(task_entry, shell_groups)
+        return self.__fetch_requests(task_entry, shell_groups)
 
-    def __faketask(self, task_entry):
+    def __faketask(self, task_entry, shell_groups):
         return task_entry
 
     # parse with soup
-    def __parser(self, task_entry):
+    def __parser(self, task_entry, shell_groups):
         rule = task_entry['rule'].strip()
         self.logger.info("parsing with rule " + rule)
         strip = task_entry.get('strip')
@@ -208,7 +221,7 @@ class RailGun:
                 parsed_datas.append(tag)
         self.logger.info("after parsing " + str(len(parsed_datas)))
         # set data to shell
-        current_shell = self.__getCurrentShell(task_entry)
+        current_shell = self.__getCurrentShell(task_entry, shell_groups)
         if current_shell != None and task_entry.get('setField') != None and len(parsed_datas) > 0:
             fieldname = task_entry.get('setField')
             self.logger.debug("set" + fieldname + "as" + str(parsed_datas));
@@ -216,18 +229,18 @@ class RailGun:
         task_entry['datas'] = parsed_datas
         return task_entry
 
-    def __createShell(self, task_entry):
+    def __createShell(self, task_entry, shell_groups):
         datas = task_entry.get('datas')
         # every shell has only one data
         subacts = []
         self.logger.info(str(len(datas)) + " shells created")
         shellgroup = task_entry.get('group', 'default')
         shellid = 0
-        self.shell_groups[shellgroup] = {}
+        shell_groups[shellgroup] = {}
         for data in datas:
             shellid += 1
             # init shell
-            self.shell_groups[shellgroup][shellid] = {}
+            shell_groups[shellgroup][shellid] = {}
             # task entry splited into pieces
             # sub actions nums = now sub nums * shell num
             subact = {
@@ -241,12 +254,12 @@ class RailGun:
         task_entry["subaction"] = subacts
         return task_entry
 
-    def __getCurrentShell(self, task_entry):
+    def __getCurrentShell(self, task_entry, shell_groups):
         if (None == task_entry.get('shellgroup')):
             return None
         shellgroup = task_entry['shellgroup']
-        if None == self.shell_groups.get(shellgroup):
+        if None == shell_groups.get(shellgroup):
             return None
         shellid = task_entry['shellid']
-        shell = self.shell_groups[shellgroup][shellid]
+        shell = shell_groups[shellgroup][shellid]
         return shell

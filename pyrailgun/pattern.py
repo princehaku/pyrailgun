@@ -55,7 +55,10 @@ class Pattern:
                 if len(self.shell[key_name]) == 1 \
                 else ""
 
-            converted_strings.append(pattern.sub(replacedst, text, 1))
+            try:
+            	converted_strings.append(pattern.sub(replacedst, text, 1))
+            except:
+            	pass
 
         # support ${@} as pyrailgun's global data sets
         if matched[0].startswith('@'):

@@ -1,6 +1,6 @@
 from pyrailgun.modules.logger import Logger
 
-__author__ = 'haku-mac'
+__author__ = 'princehaku'
 
 class RailGunAction:
 
@@ -12,9 +12,9 @@ class RailGunAction:
     def get_current_shell(task_entry, shell_groups):
         if None == task_entry.get('shellgroup'):
             return None
-        shellgroup = task_entry['shellgroup']
-        if None == shell_groups.get(shellgroup):
+        shell_group = task_entry['shellgroup']
+        if None == shell_groups.get(shell_group):
             return None
-        shellid = task_entry['shellid']
-        shell = shell_groups[shellgroup][shellid]
+        shell_id = task_entry['shellid']
+        shell = shell_groups[shell_group][shell_id]
         return shell

@@ -1,10 +1,10 @@
 # coding: UTF-8
-# User: haku
+# User: princehaku
 # Date: 14-5-22
 # Time: 4:01
 #
 
-__author__ = 'haku-mac'
+__author__ = 'princehaku'
 
 import json
 

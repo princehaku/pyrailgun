@@ -1,8 +1,10 @@
 #    coding: UTF-8
-#    User: haku
+#    User: princehaku
 #    Date: 13-10-6
 #    Time: 13:49
 #
+
+__author__ = 'princehaku'
 
 from logger import Logger
 import time

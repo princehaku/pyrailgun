@@ -1,8 +1,11 @@
 #    coding: UTF-8
-#    User: haku
+#    User: princehaku
 #    Date: 13-2-27
 #    Time: 23:23
 #
+
+__author__ = 'princehaku'
+
 import logging.config, os
 
 

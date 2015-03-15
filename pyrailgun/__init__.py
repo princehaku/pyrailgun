@@ -1,8 +1,8 @@
 #    coding: UTF-8
-#    User: haku
+#    User: princehaku
 #    Date: 13-2-14
 #    Time: 1:01
 #
-__author__ = 'haku'
+__author__ = 'princehaku'
 
 from railgun import RailGun

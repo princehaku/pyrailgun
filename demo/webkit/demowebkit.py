@@ -11,10 +11,11 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 railgun = RailGun()
-railgun.setTask(file("webkit.json"));
-railgun.fire();
+railgun.setTask(file("webkit.json"))
+railgun.fire()
 nodes = railgun.getShells()
-file = file("demo_webkit.txt", "w+")
+file = file("demo_webkit.demo.txt", "w+")
 for id in nodes:
     node = nodes[id]
-    file.write(node.get('content',[""])[0] + "\r\n====================================")
+    file.write(node.get('content', [""])[0] + "\r\n====================================\r\n")
+

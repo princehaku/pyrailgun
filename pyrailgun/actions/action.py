@@ -1,4 +1,4 @@
-from pyrailgun.logger import Logger
+from pyrailgun.modules.logger import Logger
 
 __author__ = 'haku-mac'
 
@@ -8,8 +8,9 @@ class RailGunAction:
         self.logger = Logger.getLogger()
         pass
 
-    def get_current_shell(self, task_entry, shell_groups):
-        if (None == task_entry.get('shellgroup')):
+    @staticmethod
+    def get_current_shell(task_entry, shell_groups):
+        if None == task_entry.get('shellgroup'):
             return None
         shellgroup = task_entry['shellgroup']
         if None == shell_groups.get(shellgroup):

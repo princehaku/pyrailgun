@@ -59,7 +59,7 @@ if __name__ == '__main__':
         packages=['pyrailgun'],
         include_package_data=True,
         package_data={
-            'pyrailgun': ['*.conf']
+            'pyrailgun': ['*.conf', 'modules/*.conf']
         },
         install_requires=REQUIRS
     )

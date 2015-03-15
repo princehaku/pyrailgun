@@ -2,12 +2,11 @@
 
 __author__ = 'haku-mac'
 
-import re, time
-import requests
-import json
-from pyrailgun.actions.action import RailGunAction
-from pyrailgun.logger import Logger
+import re
+
 from bs4 import BeautifulSoup
+
+from pyrailgun.actions.action import RailGunAction
 
 
 class ParserAction(RailGunAction):
@@ -25,14 +24,14 @@ class ParserAction(RailGunAction):
             soup = BeautifulSoup(data)
             parsed_data_sps = soup.select(rule)
             # set pos
-            if (None != pos):
+            if None != pos:
                 if pos > len(parsed_data_sps) - 1:
                     parsed_data_sps = []
                 else:
                     parsed_data_sps = [parsed_data_sps[pos]]
             for tag in parsed_data_sps:
                 tag = unicode(tag)
-                if (None != attr):
+                if None != attr:
                     attr_data = BeautifulSoup(tag.encode("utf8"))
                     tag = attr_data.contents[0].get(attr)
                 if strip == 'true':
@@ -46,9 +45,9 @@ class ParserAction(RailGunAction):
         self.logger.info("after parsing " + str(len(parsed_datas)))
         # set data to shell
         current_shell = self.get_current_shell(task_entry, shell_groups)
-        if current_shell != None and task_entry.get('setField') != None and len(parsed_datas) > 0:
-            fieldname = task_entry.get('setField')
-            self.logger.debug("set" + fieldname + "as" + str(parsed_datas));
-            current_shell[fieldname] = parsed_datas
+        if current_shell is not None and task_entry.get('setField') is not None and len(parsed_datas) > 0:
+            field_name = task_entry.get('setField')
+            self.logger.debug("set" + field_name + "as" + str(parsed_datas))
+            current_shell[field_name] = parsed_datas
         task_entry['datas'] = parsed_datas
         return task_entry

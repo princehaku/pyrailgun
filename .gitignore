@@ -1,4 +1,4 @@
 /railgun/*.pyc
 /.idea
-
+*.demo.txt
 /build/lib/pyrailgun

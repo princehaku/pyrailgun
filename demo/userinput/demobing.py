@@ -16,7 +16,7 @@ query = raw_input("Please Input Query\r\n")
 railgun.setGlobalData("q", urllib.quote(query))
 railgun.fire();
 nodes = railgun.getShells()
-file = file("demo_bing.txt", "w+")
+file = file("demo_bing.demo.txt", "w+")
 for id in nodes:
     node = nodes[id]
     print "entry  " + node.get('title',[""])[0]

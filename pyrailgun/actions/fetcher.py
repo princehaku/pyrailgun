@@ -23,7 +23,7 @@ class FetcherAction(RailGunAction):
         task_entry['datas'] = []
 
         urls = p.convertPattern('url')
-        timeout = task_entry.get('timeout', 120)
+        timeout = task_entry.get('timeout', 30)
         delay = task_entry.get('delay', 0)
 
         for url in urls:
@@ -58,7 +58,7 @@ class FetcherAction(RailGunAction):
     def __fetch_requests(self, task_entry, shell_groups):
         p = Pattern(task_entry, self.get_current_shell(task_entry, shell_groups))
 
-        timeout = task_entry.get('timeout', 120)
+        timeout = task_entry.get('timeout', 30)
         urls = p.convertPattern('url')
         s = requests.session()
         headers = task_entry.get('headers', [])

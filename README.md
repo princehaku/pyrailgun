@@ -1,3 +1,10 @@
+
+欢迎大家给我投简历！ zhongwei.bzw@taobao.com
+
+宇宙第一的淘宝搜索欢迎你的探索！
+
+-------
+
 NEED Python2.7
 
 功能

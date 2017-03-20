@@ -7,28 +7,45 @@
 __author__ = 'princehaku'
 
 import json
+import copy
+import sys
 
+from pyrailgun.actions.fetcher import FetcherAction
 from pyrailgun.modules.logger import Logger
+
+if sys.version > '3':
+    unicode = str
+    PY3 = True
 
 
 class RailGun:
     def __init__(self):
         self.global_data = {}
         self.shell_groups = {}
+        self.orign_task_date = {}
         self.logger = Logger.getLogger()
 
     # set taskdata into me
     def setTaskData(self, task_data):
         self.task_data = dict(task_data)
+        self.orign_task_date = copy.deepcopy(task_data)
 
     # set taskdata into me via a json file
     def setTask(self, tfile, ext=None):
-        assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
+        if PY3:
+            assert tfile.readable(), "taskfile should be an instance file, get" + str(type(tfile))
+        else:
+            assert isinstance(tfile, file), "taskfile should be an instance file, get" + str(type(tfile))
         if not ext:
             ext = tfile.name.split(".")[-1]
         task_data = json.load(tfile)
         assert task_data, "Task Data is Empty"
         self.task_data = dict(task_data)
+        self.orign_task_date = copy.deepcopy(task_data)
+
+    # reset task status
+    def resetTask(self):
+        self.task_data = copy.deepcopy(self.orign_task_date)
 
     # set some running global
     def setGlobalData(self, key, value):
@@ -37,7 +54,7 @@ class RailGun:
     # do work
     def fire(self):
         shell_groups = {}
-        self.__parser_shells(self.task_data, shell_groups)
+        self.__parser_shells(self.task_data, shell_groups, self.global_data)
         self.shell_groups = shell_groups
         return shell_groups
 
@@ -45,7 +62,7 @@ class RailGun:
     def getShells(self, group_name='default'):
         return self.shell_groups.get(group_name)
 
-    def __parser_shells(self, task_entry, shell_groups):
+    def __parser_shells(self, task_entry, shell_groups, global_data):
         """
 
         :param task_entry:
@@ -83,7 +100,7 @@ class RailGun:
                 module = getattr(getattr(getattr(module, "actions"), action_name), action_map[action_name])
                 # call Func
                 worker = getattr(module, "action")
-                task_entry = worker(module(), task_entry, shell_groups)
+                task_entry = worker(module(), task_entry, shell_groups, global_data)
 
         if None == task_entry.get('subaction'):
             return
@@ -100,7 +117,7 @@ class RailGun:
                 subtask['shellgroup'] = task_entry.get('shellgroup')
             if None != task_entry.get('shellid'):
                 subtask['shellid'] = task_entry.get('shellid')
-            self.__parser_shells(subtask, shell_groups)
+            self.__parser_shells(subtask, shell_groups, global_data)
 
         return shell_groups
 

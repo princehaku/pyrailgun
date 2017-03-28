@@ -47,6 +47,10 @@ NEED Python2.7 or Python3+
 
 * [在没有X的服务器上运行webkit内核抓取](https://github.com/princehaku/pyrailgun/wiki/在没有X的服务器上运行webkit内核抓取)
 
+贡献者
+
+* hitmaft  lekko
+
 其他
 
 * python2.7 是必须的

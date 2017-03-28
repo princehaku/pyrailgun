@@ -11,14 +11,14 @@ from pyrailgun.modules import cwebbrowser
 
 class FetcherAction(RailGunAction):
 
-    def action(self, task_entry, shell_groups):
+    def action(self, task_entry, shell_groups, global_data):
         if task_entry.get("webkit", False):
-            return self.__fetch_webkit(task_entry, shell_groups)
-        return self.__fetch_requests(task_entry, shell_groups)
+            return self.__fetch_webkit(task_entry, shell_groups, global_data)
+        return self.__fetch_requests(task_entry, shell_groups, global_data)
 
     # using webkit to fetch url
-    def __fetch_webkit(self, task_entry, shell_groups):
-        p = Pattern(task_entry, self.get_current_shell(task_entry, shell_groups))
+    def __fetch_webkit(self, task_entry, shell_groups, global_data):
+        p = Pattern(task_entry, self.get_current_shell(task_entry, shell_groups), global_data)
 
         task_entry['datas'] = []
 
@@ -39,9 +39,9 @@ class FetcherAction(RailGunAction):
                 browser.load(url=url, load_timeout=timeout, delay=delay)
             except cwebbrowser.Timeout:
                 self.logger.error("fetch " + url + " timeout ")
-            except Exception, exception:
+            except Exception as exception:
                 self.logger.error("fetch " + url + " error ")
-                print "Exception message:", exception
+                print("Exception message:%s" % exception)
 
             else:
                 html = browser.html()
@@ -55,8 +55,8 @@ class FetcherAction(RailGunAction):
             browser.close()
         return task_entry
 
-    def __fetch_requests(self, task_entry, shell_groups):
-        p = Pattern(task_entry, self.get_current_shell(task_entry, shell_groups))
+    def __fetch_requests(self, task_entry, shell_groups, global_data):
+        p = Pattern(task_entry, self.get_current_shell(task_entry, shell_groups), global_data)
 
         timeout = task_entry.get('timeout', 30)
         urls = p.convertPattern('url')

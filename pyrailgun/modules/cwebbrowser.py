@@ -8,6 +8,7 @@ __author__ = 'princehaku'
 
 from logger import Logger
 import time
+import sys
 
 from PyQt4.QtCore import QUrl, Qt
 from PyQt4.QtGui import QApplication
@@ -16,6 +17,9 @@ from PyQt4.QtNetwork import QNetworkRequest
 from PyQt4.QtWebKit import QWebPage, QWebView, QWebSettings
 
 app = QApplication(['dummy'])
+
+if sys.version > '3':
+    unicode = str
 
 
 class Timeout(Exception):

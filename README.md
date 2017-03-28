@@ -5,7 +5,7 @@
 
 -------
 
-NEED Python2.7
+NEED Python2.7 or Python3+
 
 功能
 

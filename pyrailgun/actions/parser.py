@@ -3,15 +3,19 @@
 __author__ = 'haku-mac'
 
 import re
+import sys
 
 from bs4 import BeautifulSoup
 
 from pyrailgun.actions.action import RailGunAction
 
+if sys.version > '3':
+    unicode = str
+
 
 class ParserAction(RailGunAction):
 
-    def action(self, task_entry, shell_groups):
+    def action(self, task_entry, shell_groups, global_data):
         rule = task_entry['rule'].strip()
         self.logger.info("parsing with rule " + rule)
         strip = task_entry.get('strip')
@@ -21,7 +25,7 @@ class ParserAction(RailGunAction):
         parsed_datas = []
         for data in datas:
             self.logger.debug("parse from raw " + str(data))
-            soup = BeautifulSoup(data)
+            soup = BeautifulSoup(data, "lxml")
             parsed_data_sps = soup.select(rule)
             # set pos
             if None != pos:
@@ -32,8 +36,8 @@ class ParserAction(RailGunAction):
             for tag in parsed_data_sps:
                 tag = unicode(tag)
                 if None != attr:
-                    attr_data = BeautifulSoup(tag.encode("utf8"))
-                    tag = attr_data.contents[0].get(attr)
+                    attr_data = BeautifulSoup(tag.encode("utf8"), "lxml")
+                    tag = attr_data.contents[0].contents[0].contents[0].get(attr)
                 if strip == 'true':
                     dr = re.compile(r'<!--.*-->')
                     tag = dr.sub('', tag)

@@ -13,6 +13,8 @@ import sys
 from pyrailgun.actions.fetcher import FetcherAction
 from pyrailgun.modules.logger import Logger
 
+PY3 = False
+
 if sys.version > '3':
     unicode = str
     PY3 = True

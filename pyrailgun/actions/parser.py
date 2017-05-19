@@ -25,7 +25,7 @@ class ParserAction(RailGunAction):
         parsed_datas = []
         for data in datas:
             self.logger.debug("parse from raw " + str(data))
-            soup = BeautifulSoup(data, "lxml")
+            soup = BeautifulSoup(data)
             parsed_data_sps = soup.select(rule)
             # set pos
             if None != pos:
@@ -36,8 +36,8 @@ class ParserAction(RailGunAction):
             for tag in parsed_data_sps:
                 tag = unicode(tag)
                 if None != attr:
-                    attr_data = BeautifulSoup(tag.encode("utf8"), "lxml")
-                    tag = attr_data.contents[0].contents[0].contents[0].get(attr)
+                    attr_data = BeautifulSoup(tag.encode("utf8"))
+                    tag = attr_data.contents[0].get(attr)
                 if strip == 'true':
                     dr = re.compile(r'<!--.*-->')
                     tag = dr.sub('', tag)

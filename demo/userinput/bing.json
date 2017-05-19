@@ -4,7 +4,7 @@
     "subaction": [
         {
             "action": "fetcher",
-            "url": "http://www.bing.com/search?q=${@q}",
+            "url": "http://cn.bing.com/search?q=${@q}",
             "timeout": 1,
             "subaction": [
                 {

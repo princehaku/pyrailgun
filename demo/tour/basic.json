@@ -50,7 +50,8 @@
                                 {
                                     "action": "parser",
                                     "setField": "dest",
-                                    "rule": ".bio a"
+                                    "rule": ".bio a",
+                                    "parentName": "strong"
                                 }
                             ],
                             "group": "default"

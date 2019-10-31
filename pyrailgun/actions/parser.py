@@ -17,6 +17,7 @@ class ParserAction(RailGunAction):
 
     def action(self, task_entry, shell_groups, global_data):
         rule = task_entry['rule'].strip()
+        parent_name = task_entry.get('parentName')
         self.logger.info("parsing with rule " + rule)
         strip = task_entry.get('strip')
         datas = task_entry.get('datas')
@@ -25,27 +26,37 @@ class ParserAction(RailGunAction):
         parsed_datas = []
         for data in datas:
             self.logger.debug("parse from raw " + str(data))
-            soup = BeautifulSoup(data)
+            if isinstance(data, str):
+                soup = BeautifulSoup(data)
+            else:
+                soup = data
+            # apply rule
             parsed_data_sps = soup.select(rule)
-            # set pos
-            if None != pos:
-                if pos > len(parsed_data_sps) - 1:
-                    parsed_data_sps = []
-                else:
-                    parsed_data_sps = [parsed_data_sps[pos]]
-            for tag in parsed_data_sps:
-                tag = unicode(tag)
-                if None != attr:
-                    attr_data = BeautifulSoup(tag.encode("utf8"))
-                    tag = attr_data.contents[0].get(attr)
-                if strip == 'true':
-                    dr = re.compile(r'<!--.*-->')
-                    tag = dr.sub('', tag)
-                    dr = re.compile(r'<.*?>')
-                    tag = dr.sub('', tag)
-                    dr = re.compile(r'[\r\n]')
-                    tag = dr.sub('', tag)
-                parsed_datas.append(tag)
+            data_len = len(parsed_data_sps)
+            if data_len > 0:
+                # set pos
+                if None != pos:
+                    if pos > len(parsed_data_sps) - 1:
+                        parsed_data_sps = []
+                    else:
+                        parsed_data_sps = [parsed_data_sps[pos]]
+                # find parent
+                if parent_name:
+                    parsed_data_sps = parsed_data_sps[0]
+                    parsed_data_sps = [parsed_data_sps.find_parent(parent_name.strip())]
+                for i in range(data_len):
+                    tag = parsed_data_sps[i]
+                    if None != attr:
+                        tag = tag.get(attr)
+                    if strip == 'true':
+                        tag = unicode(tag)
+                        dr = re.compile(r'<!--.*-->')
+                        tag = dr.sub('', tag)
+                        dr = re.compile(r'<.*?>')
+                        tag = dr.sub('', tag)
+                        dr = re.compile(r'[\r\n]')
+                        tag = dr.sub('', tag)
+                    parsed_datas.append(tag)
         self.logger.info("after parsing " + str(len(parsed_datas)))
         # set data to shell
         current_shell = self.get_current_shell(task_entry, shell_groups)

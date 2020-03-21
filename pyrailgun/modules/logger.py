@@ -24,7 +24,7 @@ class Logger:
             file_path = "logging.conf"
         else:
             file_path = os.path.dirname(__file__) + "/logging.conf"
-        print 'load logging configure from ' + file_path
+        print('load logging configure from %s' % file_path)
         Logger.log_instance = logging.config.fileConfig(file_path)
 
     @staticmethod

@@ -13,7 +13,7 @@ def action(self, task_entry):
         shellid += 1
         # init shell
         self.shell_groups[shellgroup][shellid] = {}
-        # task entry splited into pieces
+        # task entry splitted into pieces
         # sub actions nums = now sub nums * shell num
         subact = {
             "action": "faketask",

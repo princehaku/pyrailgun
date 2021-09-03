@@ -143,7 +143,7 @@ class RailGun:
             shellid += 1
             # init shell
             shell_groups[shellgroup][shellid] = {}
-            # task entry splited into pieces
+            # task entry splitted into pieces
             # sub actions nums = now sub nums * shell num
             subact = {
                 "action": "faketask",

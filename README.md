@@ -59,5 +59,5 @@ NEED Python2.7 or Python3+
   fix 一个crash问题
 
 * 0.24
-  受版权限制，替换webbroser为自己写的版本
+  受版权限制，替换web browser为自己写的版本
   去除yaml的支持
